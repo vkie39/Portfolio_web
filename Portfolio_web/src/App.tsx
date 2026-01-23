@@ -152,7 +152,7 @@ const App = () => {
 
   // 공통 UI
   const Container = ({ children }: { children: React.ReactNode }) => (
-    <div className="max-w-6xl mx-auto px-4">{children}</div>
+    <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 2xl:px-12 max-w-screen-2xl">{children}</div>
   );
 
   const SectionTitle = ({
