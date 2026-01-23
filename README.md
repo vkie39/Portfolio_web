@@ -1,2 +1,4 @@
 # Portfolio_web
 최서현의 이력서와 포트폴리오를 정리한 웹사이트입니다. 보시고 연락주세요.
+
+url: http://localhost:5173/
