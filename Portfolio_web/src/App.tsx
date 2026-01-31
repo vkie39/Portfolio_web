@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Github,
-  Linkedin,
+  Phone,
   Mail,
   FileText,
   ExternalLink,
@@ -9,6 +9,9 @@ import {
   X,
   Sparkles,
 } from "lucide-react";
+
+// ✅ 프로필 사진 import (권장: App.tsx가 src/App.tsx라면 src/image/seohyun.jpg 위치)
+import seohyunPhoto from "./image/seohyun.jpg";
 
 // 타입 정의
 type ProjectCategory = "AI/CV" | "VR" | "Mobile" | "Robotics" | "Team Lead";
@@ -48,6 +51,11 @@ const App = () => {
     };
   }, [selectedProject]);
 
+  // ✅ (추가) Projects 탭 들어오면 필터를 항상 All로 초기화 (꼬임 방지)
+  useEffect(() => {
+    if (activeTab === "projects") setFilterCategory("All");
+  }, [activeTab]);
+
   // 핵심 역량
   const skills: Skill[] = [
     {
@@ -77,82 +85,89 @@ const App = () => {
   ];
 
   // 프로젝트 데이터
-  const projects: Project[] = [
-    {
-      id: "1",
-      title: "YOLOv5 기반 실시간 객체 감지 시스템",
-      thumbnail: "🎯",
-      categories: ["AI/CV", "Robotics"],
-      problem: "제조 현장에서 불량품을 실시간으로 감지·분류하는 자동화 시스템 필요",
-      role: "AI 모델 개발 및 최적화 담당 (개인 프로젝트)",
-      tech: ["YOLOv5", "PyTorch", "Jetson Nano", "OpenCV", "TensorRT"],
-      result: "커스텀 데이터셋 2,000장 구축, mAP 0.89 달성, Jetson Nano에서 30fps 실시간 추론",
-      metrics: "mAP 15% 개선, 추론 속도 2배 향상",
-      link: "https://github.com/vkie39/TRANSFORMER-LSTM-CNN-correctionPID.git",
-      featured: true,
-    },
-    {
-      id: "2",
-      title: "VR 크레인 원격조종 교육 시뮬레이터",
-      thumbnail: "🏗️",
-      categories: ["VR", "Team Lead"],
-      problem: "고위험 크레인 작업을 위한 안전한 교육 환경 구축",
-      role: "VR 개발 리드, Hand Tracking 구현 (팀 3명)",
-      tech: ["Unity", "Oculus SDK", "Hand Tracking", "C#", "Physics Engine"],
-      result: "실제 크레인 조작을 VR로 시뮬레이션, 교육 시간 40% 단축",
-      metrics: "캡스톤 디자인 대상 수상",
-      link: "https://github.com/vkie39/ict_harbor.git",
-      featured: true,
-    },
-    {
-      id: "3",
-      title: "사진동네 - 위치 기반 사진 공유 앱",
-      thumbnail: "📸",
-      categories: ["Mobile", "Team Lead"],
-      problem: "특정 장소의 추억을 공유하고 발견할 수 있는 플랫폼 부재",
-      role: "풀스택 개발 및 팀 리드 (팀 4명)",
-      tech: ["Flutter", "Firebase", "Google Maps API", "FCM", "Cloud Functions"],
-      result: "MAU 500+, 평균 세션 12분, 일 업로드 200건",
-      metrics: "사용자 리텐션 65%",
-      link: "https://github.com/vkie39/Analog_PhotoApp.git",
-      featured: true,
-    },
-    {
-      id: "4",
-      title: "ROS2 기반 자율주행 로봇",
-      thumbnail: "🚗",
-      categories: ["Robotics", "AI/CV"],
-      problem: "실내 환경에서 자율 주행 및 장애물 회피",
-      role: "ROS2 노드 개발 및 센서 융합",
-      tech: ["ROS2", "LiDAR", "SLAM", "Python", "Navigation2"],
-      result: "실내 맵핑 정확도 95%, 장애물 회피 성공률 92%",
-      link: "",
-      featured: false,
-    },
-    {
-      id: "5",
-      title: "AI 기반 자세 교정 앱",
-      thumbnail: "🧘",
-      categories: ["AI/CV", "Mobile"],
-      problem: "잘못된 운동 자세로 인한 부상 방지",
-      role: "Pose Estimation 모델 통합 및 앱 개발",
-      tech: ["MediaPipe", "Flutter", "TensorFlow Lite", "Firebase"],
-      result: "실시간 자세 분석 및 피드백, 정확도 88%",
-      featured: false,
-    },
-  ];
+  const projects = useMemo<Project[]>(
+    () => [
+      {
+        id: "1",
+        title: "YOLOv5 기반 실시간 객체 감지 시스템",
+        thumbnail: "🎯",
+        categories: ["AI/CV", "Robotics"],
+        problem: "제조 현장에서 불량품을 실시간으로 감지·분류하는 자동화 시스템 필요",
+        role: "AI 모델 개발 및 최적화 담당 (개인 프로젝트)",
+        tech: ["YOLOv5", "PyTorch", "Jetson Nano", "OpenCV", "TensorRT"],
+        result: "커스텀 데이터셋 2,000장 구축, mAP 0.89 달성, Jetson Nano에서 30fps 실시간 추론",
+        metrics: "mAP 15% 개선, 위험 탐지 시 센서 작동 및 모터 속도 제어 가능",
+        link: "https://github.com/vkie39/Tickie_YOLOv5_Accuracy.git",
+        featured: true,
+      },
+      {
+        id: "2",
+        title: "VR 크레인 원격조종 교육 시뮬레이터",
+        thumbnail: "🏗️",
+        categories: ["VR", "Team Lead"],
+        problem: "고위험 크레인 작업을 위한 안전한 교육 환경 구축",
+        role: "VR 개발 리드, Hand Tracking 구현 (팀 3명)",
+        tech: ["Unity", "Oculus SDK", "Hand Tracking", "C#", "Physics Engine"],
+        result: "360도 시점의 크레인 원격 조종 사무실과 항만 공간 재현, 핸드트래킹 적용",
+        metrics: "캡스톤 디자인 대상 수상",
+        link: "https://github.com/vkie39/ict_harbor.git",
+        featured: true,
+      },
+      {
+        id: "3",
+        title: "사진동네 - 위치 기반 사진 공유 앱",
+        thumbnail: "📸",
+        categories: ["Mobile", "Team Lead"],
+        problem: "특정 장소의 추억을 공유하고 발견할 수 있는 플랫폼 부재",
+        role: "풀스택 개발 및 팀 리드 (팀 4명)",
+        tech: ["Flutter", "Firebase", "Google Maps API", "FCM", "Cloud Functions"],
+        result:
+          "Flutter와 Firebase를 활용해 위치 기반 사진 업로드·피드·알림 기능을 갖춘 MVP 구현 및 팀 프로젝트 완주",
+        metrics: "스마트 프로젝트 경진대회 장려상",
+        link: "https://github.com/vkie39/Analog_PhotoApp.git",
+        featured: true,
+      },
+      {
+        id: "4",
+        title: "ROS2 기반 자율주행 로봇",
+        thumbnail: "🚗",
+        categories: ["Robotics", "AI/CV"],
+        problem: "실내 환경에서 자율 주행 및 장애물 회피",
+        role: "ROS2 노드 개발 및 센서 융합",
+        tech: ["ROS2", "LiDAR", "SLAM", "Python", "Navigation2"],
+        result: "목표 도달 시간 최대 4.19%단축, IAE 최대 67.95% 감소, ISE 최대 75% 감소",
+        link: "https://github.com/vkie39/TRANSFORMER-LSTM-CNN-correctionPID.git",
+        featured: false,
+      },
+      {
+        id: "5",
+        title: "AI 기반 스마트팜 환경 제어 및 미래형 스마트팜 체험",
+        thumbnail: "🌱",
+        categories: ["AI/CV", "VR"],
+        problem: "작물 생육 환경을 수동으로 관리하기 어려워 자동화된 환경 제어 시스템 필요",
+        role: "AI 모델 설계 및 제어 로직 구현 (팀 프로젝트)",
+        tech: ["Python", "센서 데이터", "AI 모델", "VR", "Unity"],
+        result:
+          "환경 센서 데이터를 기반으로 작물 생육 상태를 분석하고, 자동 제어가 가능한 스마트팜 시스템 구현, VR을 통한 미래형 스마트팜 체험",
+        metrics: "AI 예측 기반 환경 제어 로직 설계 및 unity를 통한 게임형 체험 프로그램 개발 경험",
+        link: "https://github.com/vkie39/tomatoGrowth.git",
+        featured: false,
+      },
+    ],
+    []
+  );
 
   const filteredProjects = useMemo(() => {
     return filterCategory === "All"
       ? projects
       : projects.filter((p) => p.categories.includes(filterCategory));
-  }, [filterCategory]);
+  }, [filterCategory, projects]);
 
-  const featuredProjects = useMemo(() => projects.filter((p) => p.featured), []);
+  const featuredProjects = useMemo(() => projects.filter((p) => p.featured), [projects]);
 
   // 공통 UI
   const Container = ({ children }: { children: React.ReactNode }) => (
-    <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 2xl:px-12 max-w-screen-2xl">{children}</div>
+    <div className="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-7xl">{children}</div>
   );
 
   const SectionTitle = ({
@@ -312,7 +327,11 @@ const App = () => {
 
       {/* 핵심 역량 */}
       <div className="space-y-10">
-        <SectionTitle eyebrow="Core Strengths" title="핵심 역량" desc="프로젝트를 ‘완성’까지 끌고 가는 역량을 중심으로 정리했어요." />
+        <SectionTitle
+          eyebrow="Core Strengths"
+          title="핵심 역량"
+          desc="프로젝트를 ‘완성’까지 끌고 가는 역량을 중심으로 정리했어요."
+        />
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {skills.map((skill, idx) => (
             <div
@@ -334,7 +353,11 @@ const App = () => {
 
       {/* 대표 프로젝트 */}
       <div className="space-y-10">
-        <SectionTitle eyebrow="Featured" title="대표 프로젝트" desc="성과/임팩트 중심으로 빠르게 확인할 수 있도록 구성했어요." />
+        <SectionTitle
+          eyebrow="Featured"
+          title="대표 프로젝트"
+          desc="성과/임팩트 중심으로 빠르게 확인할 수 있도록 구성했어요."
+        />
         <div className="grid md:grid-cols-3 gap-6">
           {featuredProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
@@ -349,7 +372,7 @@ const App = () => {
     const categories: (ProjectCategory | "All")[] = ["All", "AI/CV", "VR", "Mobile", "Robotics", "Team Lead"];
 
     return (
-      <div className="space-y-10">
+      <div className="w-full space-y-10">
         <div className="flex items-end justify-between gap-4 flex-wrap">
           <div className="space-y-2">
             <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">프로젝트</h1>
@@ -367,7 +390,7 @@ const App = () => {
             return (
               <button
                 key={cat}
-                onClick={() => setFilterCategory(cat)}
+                onClick={() => setFilterCategory(cat === "All" ? "All" : cat)}
                 className={[
                   "px-4 py-2 rounded-xl text-sm font-semibold transition",
                   "border shadow-sm",
@@ -383,22 +406,18 @@ const App = () => {
         </div>
 
         {/* 프로젝트 카드 */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {filteredProjects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
       </div>
+    </div>
     );
   };
 
   // 프로젝트 상세 모달
   const ProjectDetailModal = ({ project }: { project: Project }) => (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      role="dialog"
-      aria-modal="true"
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
@@ -474,9 +493,7 @@ const App = () => {
           <div className="rounded-2xl border border-gray-200 p-6">
             <h3 className="font-extrabold text-gray-900 mb-3">④ 결과 및 성과</h3>
             <p className="text-gray-700 leading-relaxed">{project.result}</p>
-            {project.metrics && (
-              <div className="mt-3 text-blue-700 font-semibold">📊 {project.metrics}</div>
-            )}
+            {project.metrics && <div className="mt-3 text-blue-700 font-semibold">📊 {project.metrics}</div>}
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
@@ -514,57 +531,83 @@ const App = () => {
     <div className="space-y-10">
       <div className="space-y-2">
         <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">About & Resume</h1>
-        <p className="text-gray-600">간단한 요약 + 다운로드 CTA로 정돈했어요.</p>
+        <p className="text-gray-600">업로드한 이력서 기준으로 정리했어요.</p>
       </div>
 
-      <div className="rounded-3xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+      <div className="w-full rounded-3xl border border-gray-200 bg-white shadow-sm overflow-hidden mx-auto">
         <div className="p-8 md:p-10 bg-gradient-to-br from-blue-600/10 via-indigo-600/10 to-purple-600/10 border-b border-gray-100">
           <div className="flex items-center justify-between flex-wrap gap-4">
-            <div>
-              <div className="text-sm text-gray-600">Profile</div>
-              <div className="text-2xl font-extrabold text-gray-900 mt-1">최서현</div>
-              <div className="text-gray-600 mt-2">VR · AI/CV · Robotics | 팀 리드 경험</div>
+            {/* ✅ 사진 + 프로필 */}
+            <div className="flex items-center gap-5">
+              <img
+                src={seohyunPhoto}
+                alt="최서현 프로필 사진"
+                className="w-16 h-16 md:w-20 md:h-20 rounded-2xl object-cover border border-gray-200 shadow-sm"
+              />
+              <div>
+                <div className="text-sm text-gray-600">Profile</div>
+                <div className="text-2xl font-extrabold text-gray-900 mt-1">최서현</div>
+                <div className="text-gray-600 mt-2">
+                  VR · AI/CV · Robotics · Flutter/Firebase | 팀 리드 경험
+                </div>
+              </div>
             </div>
-            <button className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white font-semibold
-                               bg-gradient-to-r from-blue-600 to-indigo-600 shadow-md shadow-blue-200/60 hover:shadow-lg transition">
+
+            {/* ✅ 이력서 다운로드 버튼 (public/resume.pdf를 두면 동작) */}
+            <a
+              href="/resume.pdf"
+              download="최서현_이력서.pdf"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white font-semibold
+                                 bg-gradient-to-r from-blue-600 to-indigo-600 shadow-md shadow-blue-200/60 hover:shadow-lg transition"
+            >
               <FileText size={18} />
               이력서 다운로드 (PDF)
-            </button>
+            </a>
           </div>
         </div>
 
+        {/* ✅ 이력서 기반 내용 */}
         <div className="p-8 md:p-10 grid md:grid-cols-2 gap-8">
           <div className="space-y-6">
             <div className="rounded-2xl border border-gray-200 p-6">
               <h2 className="text-lg font-extrabold text-gray-900 mb-2">학력</h2>
-              <p className="text-gray-700">○○대학교 컴퓨터공학과 (2020.03 - 2024.02)</p>
+              <ul className="space-y-2 text-gray-700">
+                <li>• 동양미래대학교 컴퓨터소프트웨어공학과 (2022.03 - 2025.02) / 3.71/4.5</li>
+                <li>• 동양미래대학교 컴퓨터소프트웨어공학과 (2025.02 - 2026.02) / 4.07/4.5</li>
+              </ul>
             </div>
 
             <div className="rounded-2xl border border-gray-200 p-6">
-              <h2 className="text-lg font-extrabold text-gray-900 mb-3">자격 및 어학</h2>
+              <h2 className="text-lg font-extrabold text-gray-900 mb-2">경력</h2>
+              <p className="text-gray-700">• OXFORD 어학원 — 초/중등 영어 강사 (2025.03 - 2025.09)</p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 p-6">
+              <h2 className="text-lg font-extrabold text-gray-900 mb-3">자격/어학</h2>
               <ul className="space-y-2 text-gray-700">
-                <li>• TOEIC: 850점</li>
-                <li>• HSK 5급</li>
+                <li>• TOEIC: 780 (2025.02)</li>
+                <li>• HSK: 4급 (2021.05)</li>
               </ul>
             </div>
           </div>
 
           <div className="space-y-6">
             <div className="rounded-2xl border border-gray-200 p-6">
-              <h2 className="text-lg font-extrabold text-gray-900 mb-3">교육</h2>
+              <h2 className="text-lg font-extrabold text-gray-900 mb-3">이수교육</h2>
               <ul className="space-y-2 text-gray-700">
-                <li>• AI/ML 부트캠프 수료 (2023)</li>
-                <li>• ROS2 로봇 제어 과정 (2023)</li>
-                <li>• Unity VR 개발 과정 (2022)</li>
+                <li>• 2024 구로구-숭실대 AI+X 아카데미 (2024.06 - 2024.08)</li>
+                <li>• 미래신산업 수요특화형 AI교육 45h (2024.07)</li>
+                <li>• Codyssey 이노베이션 아카데미 (2025.03 - 2025.12)</li>
               </ul>
             </div>
 
             <div className="rounded-2xl border border-gray-200 p-6">
               <h2 className="text-lg font-extrabold text-gray-900 mb-3">수상</h2>
               <ul className="space-y-2 text-gray-700">
-                <li>• 캡스톤 디자인 대상 (2023)</li>
-                <li>• 해커톤 우수상 (2023)</li>
-                <li>• 학술제 최우수상 (2022)</li>
+                <li>• 중국어 말하기 대회 본선 진출 (2024.04)</li>
+                <li>• 캡스톤 디자인 대회 대상 (팀장, 2024.06)</li>
+                <li>• 동양미래 EXPO(Coex) 출품 및 장려상 (2024.08)</li>
+                <li>• 스마트 프로젝트 경진대회 장려상 (팀장, 2025.12)</li>
               </ul>
             </div>
           </div>
@@ -575,38 +618,38 @@ const App = () => {
 
   // Contact
   const ContactSection = () => (
-    <div className="space-y-10">
-      <div className="space-y-2">
-        <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">Contact</h1>
-        <p className="text-gray-600">협업/인턴/프로젝트 제안 언제든 환영해요.</p>
-      </div>
-
-      <div className="rounded-3xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-        <div className="p-8 md:p-10 bg-gradient-to-br from-blue-600/10 via-indigo-600/10 to-purple-600/10 border-b border-gray-100">
-          <p className="text-gray-700 text-lg">
-            새로운 프로젝트나 협업 기회가 있다면 편하게 연락 주세요!
-          </p>
+    <div className="w-full space-y-10">
+      <div className="max-w-4xl mx-auto space-y-10">
+        <div className="space-y-2 text-center">
+          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">Contact</h1>
+          <p className="text-gray-600">협업/인턴/프로젝트 제안 언제든 환영해요.</p>
         </div>
 
-        <div className="p-6 md:p-10 space-y-4">
-          <ContactRow
-            icon={<Mail className="text-blue-700" size={22} />}
-            title="Email"
-            value="your.email@example.com"
-            href="mailto:your.email@example.com"
-          />
-          <ContactRow
-            icon={<Github className="text-blue-700" size={22} />}
-            title="GitHub"
-            value="github.com/yourusername"
-            href="https://github.com/yourusername"
-          />
-          <ContactRow
-            icon={<Linkedin className="text-blue-700" size={22} />}
-            title="LinkedIn"
-            value="linkedin.com/in/yourusername"
-            href="https://linkedin.com/in/yourusername"
-          />
+        <div className="rounded-3xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+          <div className="p-8 md:p-10 bg-gradient-to-br from-blue-600/10 via-indigo-600/10 to-purple-600/10 border-b border-gray-100">
+            <p className="text-gray-700 text-lg">새로운 프로젝트나 협업 기회가 있다면 편하게 연락 주세요!</p>
+          </div>
+
+          <div className="p-6 md:p-10 space-y-4">
+            <ContactRow
+              icon={<Mail className="text-blue-700" size={22} />}
+              title="Email"
+              value="jwsh171210@naver.com"
+              href="mailto:jwsh171210@naver.com"
+            />
+            <ContactRow
+              icon={<Github className="text-blue-700" size={22} />}
+              title="GitHub"
+              value="github.com/vkie39"
+              href="https://github.com/vkie39"
+            />
+            <ContactRow
+              icon={<Phone className="text-blue-700" size={22} />}
+              title="Phone"
+              value="010-1234-1234"
+              href="tel:01012341234"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -639,28 +682,47 @@ const App = () => {
           <div className="text-gray-600">{value}</div>
         </div>
       </div>
-      <ChevronRight size={18} className="text-gray-400 group-hover:text-blue-700 group-hover:translate-x-0.5 transition" />
+      <ChevronRight
+        size={18}
+        className="text-gray-400 group-hover:text-blue-700 group-hover:translate-x-0.5 transition"
+      />
     </a>
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-40">
         <div className="bg-white/70 backdrop-blur border-b border-gray-200">
           <Container>
-            <nav className="py-4 flex items-center justify-between">
+            <nav className="py-4 flex items-center justify-between gap-3">
+              {/* 로고 */}
               <button
                 onClick={() => setActiveTab("home")}
-                className="flex items-center gap-2 font-extrabold tracking-tight text-gray-900"
+                className="flex items-center gap-2 font-extrabold tracking-tight text-gray-900 shrink-0"
               >
                 <span className="inline-flex items-center justify-center w-9 h-9 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-sm">
                   S
                 </span>
-                <span className="text-lg">SH.CHOI</span>
+                <span className="text-lg hidden sm:block">SH.CHOI</span>
               </button>
 
-              <div className="flex items-center gap-2 sm:gap-3">
+              {/* ✅ 모바일: select */}
+              <div className="sm:hidden w-[160px]">
+                <select
+                  value={activeTab}
+                  onChange={(e) => setActiveTab(e.target.value as any)}
+                  className="w-full px-3 py-2 rounded-xl border border-gray-200 bg-white/80 text-sm font-semibold"
+                >
+                  <option value="home">home</option>
+                  <option value="projects">projects</option>
+                  <option value="about">about</option>
+                  <option value="contact">contact</option>
+                </select>
+              </div>
+
+              {/* ✅ 데스크탑: 버튼(줄바꿈 가능) */}
+              <div className="hidden sm:flex items-center justify-end gap-2 flex-wrap">
                 {(["home", "projects", "about", "contact"] as const).map((tab) => {
                   const isActive = activeTab === tab;
                   return (
@@ -668,7 +730,7 @@ const App = () => {
                       key={tab}
                       onClick={() => setActiveTab(tab)}
                       className={[
-                        "capitalize px-4 py-2 rounded-xl text-sm font-semibold transition",
+                        "capitalize px-3 md:px-4 py-2 rounded-xl text-sm font-semibold transition whitespace-nowrap",
                         isActive
                           ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-200/60"
                           : "text-gray-700 hover:bg-gray-100",
@@ -685,7 +747,7 @@ const App = () => {
       </header>
 
       {/* Main */}
-      <main className="py-12">
+      <main className="py-12 flex-1">
         <Container>
           {activeTab === "home" && <HomeSection />}
           {activeTab === "projects" && <ProjectsSection />}
@@ -702,7 +764,7 @@ const App = () => {
               <div className="text-sm text-white/70">© 2026 최서현. All rights reserved.</div>
               <div className="flex items-center gap-3">
                 <a
-                  href="https://github.com/yourusername"
+                  href="https://github.com/vkie39"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 rounded-xl bg-white/10 hover:bg-white/15 transition"
@@ -711,16 +773,7 @@ const App = () => {
                   <Github size={18} />
                 </a>
                 <a
-                  href="https://linkedin.com/in/yourusername"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-xl bg-white/10 hover:bg-white/15 transition"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin size={18} />
-                </a>
-                <a
-                  href="mailto:your.email@example.com"
+                  href="mailto:jwsh171210@naver.com"
                   className="p-2 rounded-xl bg-white/10 hover:bg-white/15 transition"
                   aria-label="Email"
                 >

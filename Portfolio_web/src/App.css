@@ -1,8 +1,17 @@
 #root {
+  width: 100%;
   max-width: 1280px;
+
+  height: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0; /*기본 패딩 제거, 내부 섹션에서 패딩 조절*/
   text-align: center;
+}
+
+.main-banner {
+  width: 100%;
+  padding: 4rem 2rem;
+  box-sizing: border-box;
 }
 
 .logo {
