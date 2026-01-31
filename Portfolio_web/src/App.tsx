@@ -66,7 +66,7 @@ const App = () => {
     },
     {
       title: "Computer Vision",
-      description: "YOLOv5 커스텀 학습/최적화 및 Jetson 추론 배포 경험",
+      description: "YOLOv5 커스텀 학습/최적화 및 Jetson 추론 적용 경험",
       icon: "👁️",
       highlight: "mAP/속도 최적화",
     },
@@ -566,6 +566,38 @@ const App = () => {
           </div>
         </div>
 
+        {/* ✅ 자기소개 한 마디 - 기존 텍스트 대신 이 블록을 넣어주세요 */}
+        <div className="px-8 md:px-10 py-8">
+          <div className="relative p-6 md:p-8 rounded-3xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100/50 overflow-hidden">
+            {/* 배경 장식 요소 */}
+            <div className="absolute top-0 right-0 -mt-4 -mr-4 text-blue-200/30">
+              <Sparkles size={120} />
+            </div>
+
+            <div className="relative space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600 text-white text-xs font-bold uppercase tracking-wider">
+                Intro
+              </div>
+              
+              <div className="space-y-3">
+                <h3 className="text-xl md:text-2xl font-black text-gray-900 leading-tight">
+                  "누구보다 <span className="text-blue-600">빠르게</span>, 남들과는 <span className="text-indigo-600">다르게</span>, <br className="hidden md:block" />
+                  아이디어 위를 걷는 기획자 <span className="relative inline-block">
+                    최서현
+                    <span className="absolute bottom-1 left-0 w-full h-2 bg-blue-200/60 -z-10"></span>
+                  </span>입니다!"
+                </h3>
+                
+                <p className="text-gray-600 text-base md:text-lg font-medium leading-relaxed">
+                  <span className="inline-flex items-center gap-1 text-gray-900 font-bold">만 21세</span>의 젊은 감각과 
+                  <span className="mx-1 px-2 py-0.5 rounded-lg bg-white border border-blue-100 text-blue-700 shadow-sm">한 해 대회 7회 참여</span>라는 
+                  압도적인 열정으로, 어떤 프로젝트든 <span className="text-gray-900 font-bold underline decoration-indigo-300 underline-offset-4">빠릿빠릿하게</span> 완수하겠습니다!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* ✅ 이력서 기반 내용 */}
         <div className="p-8 md:p-10 grid md:grid-cols-2 gap-8">
           <div className="space-y-6">
@@ -595,18 +627,25 @@ const App = () => {
             <div className="rounded-2xl border border-gray-200 p-6">
               <h2 className="text-lg font-extrabold text-gray-900 mb-3">이수교육</h2>
               <ul className="space-y-2 text-gray-700">
+                <li>• 기업데이터 보호 역량 강화 과정 (2022.10.17 - 2022.10.28)</li>
+                <li>• 파이썬을 활용한 컴퓨터 비전 입문 1차 (2023.08.23 - 2023.08.26)</li>
+                <li>• MOASOFT의 Ansys HFSS 기본 과정 (2024.01.25) </li>
+                <li>• 오픈소스 소프트웨어와 비전관리시스템 Git (2024.01.25-2024.06.05)</li>
                 <li>• 2024 구로구-숭실대 AI+X 아카데미 (2024.06 - 2024.08)</li>
                 <li>• 미래신산업 수요특화형 AI교육 45h (2024.07)</li>
                 <li>• Codyssey 이노베이션 아카데미 (2025.03 - 2025.12)</li>
+                
               </ul>
             </div>
 
             <div className="rounded-2xl border border-gray-200 p-6">
-              <h2 className="text-lg font-extrabold text-gray-900 mb-3">수상</h2>
+              <h2 className="text-lg font-extrabold text-gray-900 mb-3">수상, 논문</h2>
               <ul className="space-y-2 text-gray-700">
                 <li>• 중국어 말하기 대회 본선 진출 (2024.04)</li>
                 <li>• 캡스톤 디자인 대회 대상 (팀장, 2024.06)</li>
-                <li>• 동양미래 EXPO(Coex) 출품 및 장려상 (2024.08)</li>
+                <li>• YOLO v5를 활용한 정확도 향상 논문 투고 (주저자, 2024.08.13)</li>
+                <li>• 동양미래 EXPO(Coex) 출품 및 장려상 (2024.10.22 - 2024.10.25)</li>
+                <li>• 로보틱스 응용을 위한 딥러닝 기반 지능형 PID 제어기의 구현 (2025.2.12)</li>
                 <li>• 스마트 프로젝트 경진대회 장려상 (팀장, 2025.12)</li>
               </ul>
             </div>
