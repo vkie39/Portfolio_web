@@ -174,7 +174,7 @@ const App = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
           <button 
             onClick={() => setActiveTab("projects")}
-            className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition shadow-lg shadow-slate-200"
+            className="px-8 py-4 bg-slate-900 text-black rounded-2xl font-bold hover:bg-slate-800 transition shadow-lg shadow-slate-200"
           >
             프로젝트 분석
           </button>
@@ -464,27 +464,39 @@ const App = () => {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onClick={() => setSelectedProject(null)} />
           <div className="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-[40px] overflow-hidden shadow-2xl flex flex-col">
+            
+            {/* 1. 모달 헤더 (이미지 제거하고 타이틀만 깔끔하게) */}
             <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-md px-8 py-5 border-b border-gray-100 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-3xl">{selectedProject.thumbnail}</span>
-                <h2 className="text-xl font-black tracking-tight">{selectedProject.title}</h2>
-              </div>
+              <h2 className="text-xl font-black tracking-tight">{selectedProject.title}</h2>
               <button onClick={() => setSelectedProject(null)} className="p-3 bg-gray-100 rounded-2xl hover:bg-gray-200 transition">
                 <X size={20} />
               </button>
             </div>
             
+            {/* 2. 모달 컨텐츠 영역 */}
             <div className="overflow-y-auto p-8 md:p-12">
+              
+              {/* 🔥 추가된 대형 이미지 섹션 */}
+              <div className="w-full h-80 mb-12 overflow-hidden rounded-[32px] bg-slate-100 shadow-inner">
+                <img 
+                  src={selectedProject.thumbnail} 
+                  alt={selectedProject.title} 
+                  className="w-full h-full object-cover" 
+                />
+              </div>
+
               <div className="grid md:grid-cols-3 gap-12">
                 <div className="md:col-span-2 space-y-12">
                   <section>
                     <h4 className="text-blue-600 font-black text-xs uppercase tracking-[0.2em] mb-4">01. Problem Definition</h4>
                     <p className="text-xl font-bold text-slate-900 leading-snug">{selectedProject.problem}</p>
                   </section>
+                  
                   <section>
                     <h4 className="text-blue-600 font-black text-xs uppercase tracking-[0.2em] mb-4">02. Strategy & Role</h4>
                     <p className="text-slate-600 leading-relaxed">{selectedProject.role}</p>
                   </section>
+
                   <section>
                     <h4 className="text-blue-600 font-black text-xs uppercase tracking-[0.2em] mb-4">03. Key Results</h4>
                     <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100">
@@ -499,6 +511,7 @@ const App = () => {
                   </section>
                 </div>
                 
+                {/* 오른쪽 사이드바 (Tech Stack) */}
                 <div className="space-y-8">
                   <div className="bg-gray-50 rounded-[32px] p-6 space-y-6">
                     <div>
@@ -509,7 +522,7 @@ const App = () => {
                     </div>
                     {selectedProject.link && (
                       <a href={selectedProject.link} target="_blank" rel="noreferrer" 
-                         className="flex items-center justify-center gap-2 w-full py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition shadow-lg">
+                        className="flex items-center justify-center gap-2 w-full py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition shadow-lg">
                         <Github size={18} /> View Source
                       </a>
                     )}
