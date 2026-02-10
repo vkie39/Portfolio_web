@@ -49,9 +49,28 @@ const App = () => {
     if (activeTab === "projects") setFilterCategory("All");
   }, [activeTab]);
 
+// App.tsx 내부
 const API_BASE = import.meta.env.VITE_API_BASE;
+console.log("현재 설정된 API 주소:", API_BASE); // 1번 확인
 
 const [projects, setProjects] = useState<Project[]>([]);
+
+useEffect(() => {
+  console.log("useEffect 실행됨! fetch 시작..."); // 2번 확인
+  
+  fetch(`${API_BASE}/api/projects`)
+    .then(res => {
+      console.log("응답 받음:", res.status); // 3번 확인
+      return res.json();
+    })
+    .then(data => {
+      console.log("데이터 파싱 완료:", data); // 4번 확인
+      setProjects(data);
+    })
+    .catch(err => {
+      console.error("Fetch 에러 발생:", err); // 에러 확인
+    });
+}, [API_BASE]);
 
 useEffect(() => {
   fetch(`${API_BASE}/api/projects`)
