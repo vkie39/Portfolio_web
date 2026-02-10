@@ -14,14 +14,8 @@ import {
 } from "lucide-react";
 
 // ✅ 이미지 경로 (기존 유지)
-import seohyunPhoto from "./image/seohyun.jpg";
+import seohyunPhoto from "../Portfolio-api/image/seohyun.jpg";
 
-// ✅ 이미지 Import (src/image 경로 기준)
-import imgA from "./image/jetsonNano.png";
-import imgB from "./image/harborGuard.png";
-import imgC from "./image/SajinDongnae.png";
-import imgD from "./image/motor_control.png";
-import imgE from "./image/tomatoFarm.png";
 
 // 타입 정의
 type ProjectCategory = "AI/CV" | "VR" | "Mobile" | "Robotics" | "Team Lead";
@@ -29,7 +23,7 @@ type ProjectCategory = "AI/CV" | "VR" | "Mobile" | "Robotics" | "Team Lead";
 interface Project {
   id: string;
   title: string;
-  thumbnail: any;
+  thumbnail: string;
   categories: ProjectCategory[];
   problem: string;
   role: string;
@@ -41,7 +35,7 @@ interface Project {
 }
 
 const App = () => {
-  const [activeTab, setActiveTab] = useState<"home" | "projects" | "about" | "contact">("home");
+  const [activeTab, setActiveTab] = useState<"home" | "projects" | "about" | "story" | "contact">("home");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [filterCategory, setFilterCategory] = useState<ProjectCategory | "All">("All");
 
@@ -55,72 +49,13 @@ const App = () => {
     if (activeTab === "projects") setFilterCategory("All");
   }, [activeTab]);
 
-  // --- 데이터 (기존 내용 유지하되 기획자 관점의 레이블 추가 가능) ---
-  const projects = useMemo<Project[]>(() => [
-    {
-      id: "1",
-      title: "YOLOv5 실시간 객체 감지 시스템",
-      thumbnail: imgA,
-      categories: ["AI/CV", "Robotics"],
-      problem: "실내 자율주행 시 장애물 회피 효율성 극대화",
-      role: "AI 모델 설계 및 Jetson Nano 최적화 전략 수립",
-      tech: ["YOLOv5", "PyTorch", "Jetson Nano", "TensorRT"],
-      result: "커스텀 데이터셋 2,000장 구축 및 mAP 0.89 달성. 현장 즉시 도입 가능한 수준의 30fps 구현",
-      metrics: "mAP 0.89 / 30fps 추론",
-      link: "https://github.com/vkie39/Tickie_YOLOv5_Accuracy.git",
-      featured: true,
-    },
-    {
-      id: "2",
-      title: "VR 크레인 교육 시뮬레이터",
-      thumbnail: imgB,
-      categories: ["VR", "Team Lead"],
-      problem: "고위험 항만 작업 교육의 안전 사고 리스크 및 비용 문제 해결",
-      role: "기획 리드 및 Hand Tracking 인터랙션 설계",
-      tech: ["Unity", "Oculus SDK", "C#", "Physics Engine"],
-      result: "실제 항만 환경을 95% 이상 재현한 시뮬레이션 환경 구축 및 핸드트래킹 기반 교육 모듈 완성",
-      metrics: "캡스톤 디자인 대상 수상",
-      link: "https://github.com/vkie39/ict_harbor.git",
-      featured: true,
-    },
-    {
-      id: "3",
-      title: "사진동네: 위치 기반 공유 플랫폼",
-      thumbnail: imgC,
-      categories: ["Mobile", "Team Lead"],
-      problem: "특정 장소의 실시간 경험 중심 커뮤니티 니즈 충족",
-      role: "서비스 기획 및 풀스택 개발 총괄",
-      tech: ["Flutter", "Firebase", "Google Maps API", "FCM"],
-      result: "위치 기반 인터랙션 MVP 구현 및 스마트 프로젝트 경진대회 수상으로 기획력 증명",
-      metrics: "경진대회 수상작",
-      link: "https://github.com/vkie39/Analog_PhotoApp.git",
-      featured: true,
-    },
-    {
-      id: "4",
-      title: "ROS2 자율주행 로봇 제어",
-      thumbnail: imgD,
-      categories: ["Robotics", "AI/CV"],
-      problem: "제조 현장 내 실시간 불량 감지 및 자동 분류 시스템 부재 해결",
-      role: "ROS2 노드 통신 설계 및 알고리즘 검증",
-      tech: ["ROS2", "LiDAR", "SLAM", "Python", "Nav2"],
-      result: "PID 제어기 보정을 통해 목표 도달 시간 4.19% 단축 및 주행 안정성 대폭 향상",
-      metrics: "IAE 67.95% 감소",
-      link: "https://github.com/vkie39/TRANSFORMER-LSTM-CNN-correctionPID.git",
-    },
-    {
-      id: "5",
-      title: "미래형 스마트팜 환경 제어",
-      thumbnail: imgE,
-      categories: ["AI/CV", "VR"],
-      problem: "데이터 기반 농작물 관리 자동화 및 가상 체험 니즈",
-      role: "데이터 분석 기반 제어 로직 기획",
-      tech: ["Python", "AI Model", "Unity", "IoT Sensors"],
-      result: "센서 데이터 기반 생육 예측 모델과 이를 시각화한 VR 체험 프로그램 통합 구현",
-      metrics: "예측 기반 자동제어 로직",
-      link: "https://github.com/vkie39/tomatoGrowth.git",
-    }
-  ], []);
+  const [projects, setProjects] = useState<Project[]>([]);
+
+useEffect(() => {
+  fetch("http://localhost:4000/api/projects")
+    .then(res => res.json())
+    .then(data => setProjects(data));
+}, []);
 
   const filteredProjects = useMemo(() => 
     filterCategory === "All" ? projects : projects.filter(p => p.categories.includes(filterCategory))
@@ -273,7 +208,7 @@ const App = () => {
               <span className="font-black text-xl tracking-tighter">SH.CHOI</span>
             </button>
             <div className="hidden md:flex gap-1 bg-gray-100 p-1 rounded-2xl">
-              {(["home", "projects", "about", "contact"] as const).map((tab) => (
+              {(["home", "projects", "about", "story", "contact"] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -294,6 +229,7 @@ const App = () => {
               <option value="home">HOME</option>
               <option value="projects">PROJECTS</option>
               <option value="about">ABOUT</option>
+              <option value="about">Story</option>
               <option value="contact">CONTACT</option>
             </select>
           </nav>
@@ -414,6 +350,82 @@ const App = () => {
             </div>
           )}
 
+          {activeTab === "story" && (
+            <div className="max-w-4xl mx-auto space-y-16 animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <div className="text-center space-y-4">
+                <Badge color="blue">Self Introduction</Badge>
+                <h2 className="text-4xl font-black tracking-tighter">기술과 사용자를 잇는 기획자, <span className="text-blue-600">최서현</span>의 이야기</h2>
+              </div>
+
+              {/* 섹션 1: 성장 과정 및 가치관 */}
+              <section className="bg-white rounded-[40px] border border-gray-100 p-8 md:p-12 shadow-sm space-y-6">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600">
+                    <Sparkles size={24} />
+                  </div>
+                  <h3 className="text-2xl font-black">성장 과정: 책임감에서 시작된 기획의 본질</h3>
+                </div>
+                <p className="text-slate-600 leading-relaxed font-medium">
+                  어린 시절부터 주어진 역할에 대한 깊은 책임감을 바탕으로 성장해 왔습니다. 이러한 태도는 프로젝트의 처음부터 끝까지 집요하게 파고드는 기획자의 자세로 이어졌습니다. 
+                  단순히 아이디어를 내는 것에 그치지 않고, "이 아이디어가 어떻게 실현되어 사용자에게 닿을 것인가?"를 끊임없이 질문하며 철저한 계획과 우선순위 설정을 통해 창의적인 아이디어를 논리적인 실체로 만들어냅니다.
+                </p>
+              </section>
+
+              {/* 섹션 2: 주요 활동 (기술적 역량) */}
+              <section className="grid md:grid-cols-2 gap-8">
+                <div className="bg-slate-900 rounded-[40px] p-8 md:p-10 text-white space-y-6 shadow-xl">
+                  <h3 className="text-xl font-black flex items-center gap-2">
+                    <Target className="text-blue-400" /> 데이터 기반의 문제 해결
+                  </h3>
+                  <p className="text-slate-300 text-sm leading-relaxed">
+                    동양미래대학교에서 Python을 중심으로 데이터 처리 및 시스템 설계 역량을 키웠습니다. 자율주행·로보틱스 프로젝트를 수행하며 센서 데이터를 직접 수집하고 정제하는 과정을 통해, 정량적 지표에 근거한 기획의 중요성을 배웠습니다.
+                  </p>
+                  <div className="pt-4 border-t border-slate-800">
+                    <p className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Key Experience</p>
+                    <ul className="text-sm space-y-2 text-slate-400">
+                      <li>• YOLOv5 기반 실시간 객체 인식 최적화</li>
+                      <li>• Firebase 데이터 모델링 및 확장성 설계</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="bg-blue-600 rounded-[40px] p-8 md:p-10 text-white space-y-6 shadow-xl shadow-blue-100">
+                  <h3 className="text-xl font-black flex items-center gap-2">
+                    <Zap className="text-amber-300" /> 리더십과 협업의 언어
+                  </h3>
+                  <p className="text-slate-100 text-sm leading-relaxed">
+                    울산항만공사 협업 VR 프로젝트의 팀장으로서 전체 시스템 설계와 기획을 총괄했습니다. 개발자와 기획자 사이의 간극을 줄이기 위해 기술적 한계를 먼저 이해하고, 이를 보완할 수 있는 인터랙션 전략을 수립하여 캡스톤 디자인 대상이라는 결과를 이끌어냈습니다.
+                  </p>
+                  <div className="pt-4 border-t border-white/20">
+                    <p className="text-xs font-bold text-blue-100 uppercase tracking-widest mb-2">Leadership</p>
+                    <ul className="text-sm space-y-2 text-blue-50">
+                      <li>• 연간 7회 이상의 공모전 참여 및 리딩</li>
+                      <li>• 기획-개발-결과 분석의 Full-Cycle 경험</li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+
+              {/* 섹션 3: 지원 동기 및 포부 */}
+              <section className="bg-slate-50 rounded-[40px] border border-slate-100 p-8 md:p-12 text-center space-y-6">
+                <h3 className="text-2xl font-black text-slate-900 italic">"젊은 나이와 열정으로 새로운 가능성을 열다"</h3>
+                <p className="text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium">
+                  누구보다 빠르게 남들과는 다르게 색다르게 아이디어 위를 걷는 기획자 최서현입니다!
+                  만 21세의 젊은 나이와 열정으로 1년에 7개가 넘는 대회 참가, 4장의 논문 투고, 3번의 수상을 경험했습니다. 
+                  기획부터 구현까지 모두 참여했던 경험을 발판으로 맡은 일을 열심히 해내겠습니다.
+                </p>
+                <div className="pt-6">
+                  <button 
+                    onClick={() => setActiveTab("contact")}
+                    className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:scale-105 transition-transform"
+                  >
+                    함께 성장하기 위해 연락하기
+                  </button>
+                </div>
+              </section>
+            </div>
+          )}
+
           {activeTab === "contact" && (
             <div className="max-w-2xl mx-auto py-12 text-center space-y-12">
               <div className="space-y-4">
@@ -424,7 +436,7 @@ const App = () => {
                 {[
                   { icon: <Mail />, label: "Email", value: "jwsh171210@naver.com", href: "mailto:jwsh171210@naver.com" },
                   { icon: <Github />, label: "GitHub", value: "github.com/vkie39", href: "https://github.com/vkie39" },
-                  { icon: <Phone />, label: "Phone", value: "010-XXXX-XXXX", href: "tel:010XXXXXXXX" }
+                  { icon: <Phone />, label: "Phone", value: "010-7611-1384", href: "tel:01076111384" }
                 ].map(item => (
                   <a key={item.label} href={item.href} target="_blank" rel="noreferrer" 
                      className="flex items-center justify-between p-6 bg-white border border-gray-100 rounded-[28px] hover:shadow-xl transition-all group">
