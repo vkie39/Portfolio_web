@@ -4,7 +4,11 @@
 임시 실행: http://localhost:5173/
 공식 사이트 링크: https://portfolio-web-389ba.web.app/
 
-임시 실행: npm run dev
+
+
+임시 실행: 
+        (1) Portfolio-api에서 node server.js
+        (2) Portfolio-web에서 npm run dev
 
 firebase 업로드: npm run build
                 firebase deploy

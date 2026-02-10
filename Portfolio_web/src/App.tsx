@@ -49,13 +49,16 @@ const App = () => {
     if (activeTab === "projects") setFilterCategory("All");
   }, [activeTab]);
 
-  const [projects, setProjects] = useState<Project[]>([]);
+const API_BASE = import.meta.env.VITE_API_BASE;
+
+const [projects, setProjects] = useState<Project[]>([]);
 
 useEffect(() => {
-  fetch("http://localhost:4000/api/projects")
+  fetch(`${API_BASE}/api/projects`)
     .then(res => res.json())
     .then(data => setProjects(data));
 }, []);
+
 
   const filteredProjects = useMemo(() => 
     filterCategory === "All" ? projects : projects.filter(p => p.categories.includes(filterCategory))
@@ -132,7 +135,7 @@ useEffect(() => {
     >
       <div className="relative h-64 overflow-hidden rounded-[24px] bg-slate-50 flex items-center justify-center">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
-        <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-20"
+        <img src={`${API_BASE}${project.thumbnail}`} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 z-20"
     />
         <div className="absolute top-4 left-4 flex gap-2 z-20">
           {project.categories.map(c => <Badge key={c}>{c}</Badge>)}
@@ -491,7 +494,7 @@ useEffect(() => {
               {/* 🔥 추가된 대형 이미지 섹션 */}
               <div className="w-full h-80 mb-12 overflow-hidden rounded-[32px] bg-slate-100 shadow-inner">
                 <img 
-                  src={selectedProject.thumbnail} 
+                  src={`${API_BASE}${selectedProject.thumbnail}`} 
                   alt={selectedProject.title} 
                   className="w-full h-full object-cover" 
                 />
