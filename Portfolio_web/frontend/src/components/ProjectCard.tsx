@@ -8,6 +8,8 @@ interface ProjectCardProps {
   onClick: () => void;
 }
 
+const SERVER_URL = 'https://portfolio-web-vk66.onrender.com';
+
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) => {
   return (
     <motion.div
@@ -25,7 +27,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
       <div className="card-image-container">
         <div className="card-image-wrapper">
           <img
-            src={project.image}
+            src={`${SERVER_URL}${project.thumbnail}`} 
             alt={project.title}
             className="card-image"
             onError={(e) => {
@@ -51,13 +53,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
         </div>
 
         <div className="card-tech">
-          {project.techStack.slice(0, 4).map((tech) => (
+          {project.tech.slice(0, 4).map((tech) => (
             <span key={tech} className="tech-tag">
               {tech}
             </span>
           ))}
-          {project.techStack.length > 4 && (
-            <span className="tech-tag">+{project.techStack.length - 4}</span>
+          {project.tech.length > 4 && (
+            <span className="tech-tag">+{project.tech.length - 4}</span>
           )}
         </div>
 

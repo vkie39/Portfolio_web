@@ -25,7 +25,7 @@ const MailboxProjects: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/projects')
+    axios.get('https://portfolioweb-production-c213.up.railway.app/api/projects')
       .then(res => { setProjects(res.data); setLoading(false); })
       .catch(err => { console.error(err); setLoading(false); });
   }, []);

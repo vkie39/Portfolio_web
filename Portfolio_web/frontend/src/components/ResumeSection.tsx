@@ -93,9 +93,7 @@ const ResumeSection = () => {
 
   // 2. 컴포넌트가 나타날 때 서버에서 데이터를 가져옵니다.
   useEffect(() => {
-    // 로컬 테스트 시에는 'http://localhost:4000/api/about' 사용
-    // 배포 후에는 Render 주소인 'https://portfolio-web-vk66.onrender.com/api/about' 사용
-    axios.get('http://localhost:4000/api/about')
+    axios.get('https://portfolioweb-production-c213.up.railway.app/api/about')
       .then(res => {
         setQaData(res.data);
         setLoading(false);

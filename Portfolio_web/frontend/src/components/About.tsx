@@ -1,16 +1,25 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
 import './About.css';
 
 const About: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
+  const API_BASE_URL = (process as any).env.REACT_APP_API_URL || 'portfolioweb-production-c213.up.railway.app';
+
   useEffect(() => {
-    // Q&A 데이터는 사용하지 않지만 로딩 상태 제어를 위해 둡니다.
-    const timer = setTimeout(() => setLoading(false), 500);
-    return () => clearTimeout(timer);
-  }, []);
+    const fetchData = async () => {
+      try {
+        // 실제 백엔드에서 About 데이터를 가져오는 경우
+        // const response = await axios.get(`${API_BASE_URL}/api/about`);
+        setLoading(false);
+      } catch (error) {
+        console.error("데이터 로드 실패:", error);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [API_BASE_URL]);
 
   if (loading) return <div className="about-loading"><div className="loading-spinner"></div></div>;
 
