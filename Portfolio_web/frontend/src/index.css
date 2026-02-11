@@ -1,19 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;500;700&family=Parisienne&display=swap');
 
 :root {
-  --color-bg-dark: #0a0a0a;
-  --color-bg-light: #f5f1e8;
-  --color-accent: #ff6b35;
-  --color-accent-2: #00d4ff;
-  --color-text-dark: #0a0a0a;
-  --color-text-light: #f5f1e8;
-  --color-border: #0a0a0a;
+  --c-pink: #fcdcf7;
+  --c-blue: #dcf1fc;
+  --c-ivory: #fffff0;
+  --c-text-soft: #5a4a5a; /* 부드러운 텍스트 색상 */
+  --c-accent-gold: #d4af37; /* 포인트 컬러 */
   
-  --font-display: 'Syne', sans-serif;
-  --font-mono: 'Space Mono', monospace;
-  
-  --shadow-brutal: 8px 8px 0px var(--color-border);
-  --shadow-hover: 12px 12px 0px var(--color-border);
+  --font-serif: 'Noto Serif KR', serif;
+  --font-script: 'Parisienne', cursive;
 }
 
 * {
@@ -23,85 +19,37 @@
 }
 
 body {
-  font-family: var(--font-mono);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-serif);
+  color: var(--c-text-soft);
   overflow-x: hidden;
+  /* 수채화 배경 레이어 1 (베이스) */
+  background: linear-gradient(120deg, var(--c-pink), var(--c-blue));
+  min-height: 100vh;
 }
 
-html {
-  scroll-behavior: smooth;
+/* 수채화 번짐 효과를 위한 오버레이 레이어 */
+body::after {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 40%, rgba(252, 220, 247, 0.6), transparent 40%),
+              radial-gradient(circle at 70% 60%, rgba(220, 241, 252, 0.6), transparent 40%),
+              linear-gradient(to bottom right, rgba(255,255,255,0.2), transparent);
+  filter: blur(60px); /* 물에 번진 듯한 느낌 */
+  z-index: -1;
+  pointer-events: none;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 12px;
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--color-bg-light);
-  border-left: 2px solid var(--color-border);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-accent);
-  border: 2px solid var(--color-border);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent-2);
-}
-
-/* Selection */
-::selection {
-  background: var(--color-accent);
-  color: var(--color-text-light);
-}
-
-/* Utility classes */
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.text-display {
-  font-family: var(--font-display);
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.text-mono {
-  font-family: var(--font-mono);
-}
-
-/* Animations */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-}
-
-@keyframes glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
-}
-
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes rotate-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+/* 스크롤바 커스텀 (선택사항) */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.5); border-radius: 4px; }

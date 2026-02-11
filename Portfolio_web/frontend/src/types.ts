@@ -5,6 +5,7 @@ export type ProjectCategory = "AI/CV" | "VR" | "Mobile" | "Robotics" | "Team Lea
 export interface Project {
   id: string;
   title: string;
+  subtitle?: string;
   thumbnail: string;
   categories: ProjectCategory[];
   problem: string;

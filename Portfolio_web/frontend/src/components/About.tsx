@@ -1,134 +1,162 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import axios from 'axios';
-import { AboutQA } from '../types';
 import './About.css';
 
 const About: React.FC = () => {
-  const [aboutData, setAboutData] = useState<AboutQA[]>([]);
-  const [activeIndex, setActiveIndex] = useState<number | null>(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchAboutData();
+    // Q&A 데이터는 사용하지 않지만 로딩 상태 제어를 위해 둡니다.
+    const timer = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(timer);
   }, []);
 
-  const fetchAboutData = async () => {
-    try {
-      const response = await axios.get('http://localhost:3001/api/about');
-      setAboutData(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching about data:', error);
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="about-loading">
-        <div className="loading-spinner"></div>
-      </div>
-    );
-  }
+  if (loading) return <div className="about-loading"><div className="loading-spinner"></div></div>;
 
   return (
-    <section className="about-section">
+    <section className="about-section" style={{ paddingLeft: '25px', paddingRight: '25px', background: 'transparent' }}>
       <div className="container">
-        <motion.div
+        <motion.div 
           className="section-header"
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
         >
-          <h2 className="section-title">
-            <span className="title-number">02.</span>
-            About Me
-          </h2>
-          <p className="section-description">
-            21살의 어린 나이, 끝없는 도전과 성장의 이야기
-          </p>
+          <h2 className="section-title"><span className="title-number">05.</span> About Me</h2>
+          <p className="section-description">"코드도 읽고 사용자도 읽는, 아이디어를 MVP로 만드는 개발자"</p>
         </motion.div>
 
-        <div className="about-grid">
-          <motion.div
-            className="about-stats"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          >
-            <div className="stat-item">
-              <div className="stat-number">7+</div>
-              <div className="stat-label">대회 참가</div>
+        <div className="about-content-grid">
+          
+          {/* [컬럼 1] 가장 왼쪽: 프로필 이미지 */}
+          <div className="about-image-col">
+            <div className="profile-image-wrapper">
+               <img src="../public/images/seohyun.png" alt="최서현 프로필" />
             </div>
-            <div className="stat-item">
-              <div className="stat-number">4</div>
-              <div className="stat-label">논문 투고</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">3</div>
-              <div className="stat-label">수상 경력</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">4.07</div>
-              <div className="stat-label">학점 / 4.5</div>
-            </div>
-          </motion.div>
-
-          <div className="about-qa">
-            {aboutData.map((item, index) => (
-              <motion.div
-                key={index}
-                className={`qa-item ${activeIndex === index ? 'active' : ''}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * index, duration: 0.5 }}
-              >
-                <button
-                  className="qa-question"
-                  onClick={() => setActiveIndex(activeIndex === index ? null : index)}
+            <div className="profile-simple-info">
+              <h3>최서현</h3>
+              <p>Seohyun Choi</p>
+              <div className="mini-contact">
+                <span>📍 인천시 부평구</span><br/>
+                <span>📧 vkie39@github.com</span>
+              </div>
+              <div className="resume-download-wrapper">
+                <a  
+                  href="../../public/resume.pdf"  
+                  download="최서현_이력서.pdf" 
+                  className="download-btn"
                 >
-                  <span className="question-number">Q{index + 1}</span>
-                  <span className="question-text">{item.question}</span>
-                  <span className="question-icon">
-                    {activeIndex === index ? '−' : '+'}
-                  </span>
-                </button>
-
-                <AnimatePresence>
-                  {activeIndex === index && (
-                    <motion.div
-                      className="qa-answer"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className="answer-content">
-                        <span className="answer-label">A</span>
-                        <p>{item.answer}</p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
+                  <span className="icon">📄</span> Resume 다운로드
+                </a>
+              </div>
+            </div>
           </div>
+
+          {/* [컬럼 2] 중간: 통계, 경력(이동됨), 자격증, 이수 교육 */}
+          <div className="about-left-col">
+            <div className="about-stats">
+              <div className="stat-item"><div className="stat-number">7+</div><div className="stat-label">대회 참가</div></div>
+              <div className="stat-item"><div className="stat-number">4</div><div className="stat-label">논문 투고</div></div>
+              <div className="stat-item"><div className="stat-number">3</div><div className="stat-label">수상 경력</div></div>
+              <div className="stat-item"><div className="stat-number">4.07</div><div className="stat-label">학점</div></div>
+            </div>
+
+            {/* Career 섹션이 중간 컬럼으로 이동되었습니다 */}
+            <div className="resume-block">
+              <h3 className="sub-section-title">Career</h3>
+              <ul className="resume-list">
+                <li>
+                  <span className="date">약 1년</span>
+                  <strong>OXFORD 어학원</strong>
+                  <p>초/중등 영어 강사 (수업 진행 및 학생 관리)</p>
+                </li>
+              </ul>
+            </div>
+
+            <div className="resume-block">
+              <h3 className="sub-section-title">Licenses</h3>
+              <ul className="resume-list">
+                <li><strong>TOEIC 780점</strong></li>
+                <li><strong>HSK 4급</strong> </li>
+                <li><strong>운전면허 2종 보통</strong></li>
+              </ul>
+            </div>
+
+            <div className="resume-block">
+              <h3 className="sub-section-title">Training</h3>
+              <ul className="resume-list mini">
+                <li><strong>AI+X 아카데미 AI 프로젝트 과정</strong> (숭실대)</li>
+                <li><strong>미래신산업 수요특화형 AI 교육</strong> (영남이공대)</li>
+                <li><strong>기업 데이터 보호 역량 강화 과정</strong> (스나이퍼팩토리)</li>
+                <li><strong>오픈소스 SW와 버전관리 시스템 Git</strong> (동양미래대)</li>
+                <li><strong>기업 역량 향상 강화 프로그램</strong> (동양미래대)</li>
+                <li><strong>Codyssey</strong> (이노베이션 아카데미)</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* [컬럼 3] 오른쪽: 상세 활동 경험, 수상 내역 */}
+          <div className="about-right-col">
+            <div className="resume-block">
+              <h3 className="sub-section-title">Experience</h3>
+              <ul className="resume-list">
+                <li>
+                  <span className="date">2023.03 - 2023.04</span>
+                  <strong>창의력 경진대회</strong>
+                  <p>청각 장애인을 위한 비트기계</p>
+                </li>
+                <li>
+                  <span className="date">2023.08 - 2023.10</span>
+                  <strong>실기 시험 과제</strong>
+                  <p>패완칼 (패스트푸드의 완성은 피자칼)</p>
+                </li>
+                <li>
+                  <span className="date">2024.03 - 2024.04</span>
+                  <strong>ICT 창의력 경진대회</strong>
+                  <p>태양광 자율주행 RC카 HW/SW 개발</p>
+                </li>
+                <li>
+                  <span className="date">2024.04 - 2024.10</span>
+                  <strong>한이음 항만 프로젝트</strong>
+                  <p>harborGuard (VR 항만 크레인 시뮬레이터)</p>
+                </li>
+                <li>
+                  <span className="date">2024.06 - 2024.11</span>
+                  <strong>졸업 작품</strong>
+                  <p>객체 인식 정확도 향상 기반 자율주행 (논문 투고)</p>
+                </li>
+                <li>
+                  <span className="date">2024.06 - 2024.08</span>
+                  <strong>동양미래 EXPO 작품 전시</strong>
+                  <p>미래형 스마트팜 환경 제어 시스템 시연</p>
+                </li>
+                <li>
+                  <span className="date">2024.12 - 2025.01</span>
+                  <strong>KIEES 학회 동계 학술 논문 대회</strong>
+                  <p>딥러닝 기반 지능형 PID 제어기 구현</p>
+                </li>
+                <li>
+                  <span className="date">2025.06 - 2025.11</span>
+                  <strong>스마트 프로젝트 경진대회</strong>
+                  <p>[사진동네] 커뮤니티 및 사진 거래 플랫폼</p>
+                </li>
+              </ul>
+            </div>
+
+            <div className="resume-block">
+              <h3 className="sub-section-title">Awards</h3>
+              <ul className="award-grid">
+                <li><strong>캡스톤 디자인 대회 대상</strong> <span>VR 항만 시뮬레이터</span></li>
+                <li><strong>스마트 프로젝트 장려상</strong> <span>사진동네 플랫폼</span></li>
+                <li><strong>동양미래 EXPO 장려상</strong> <span>스마트팜 AI 모델</span></li>
+                <li><strong>AWS Deep Racer League 4위</strong> <span>강화학습 자율주행</span></li>
+                <li><strong>논문 제1저자 (KIEES학회)</strong> <span>객체 지향 모델 정확도 향상</span></li>
+              </ul>
+            </div>
+          </div>
+
         </div>
-
-        <motion.div
-          className="about-footer"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-        >
-          <div className="footer-content">
-            <h3>열정 있게 일을 배우겠습니다!</h3>
-            <p>
-              "코드도 읽고 사용자도 읽는, 아이디어를 MVP로 만드는 개발자"
-            </p>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

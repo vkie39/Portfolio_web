@@ -6,8 +6,8 @@ const Contact: React.FC = () => {
     {
       icon: '📧',
       label: 'Email',
-      value: 'seohyun@example.com',
-      link: 'mailto:seohyun@example.com',
+      value: 'jwsh171210@naver.com',
+      link: 'mailto:jwsh171210@naver.com',
       color: 'var(--color-accent)'
     },
     {
@@ -36,7 +36,7 @@ const Contact: React.FC = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="section-title">
-            <span className="title-number">03.</span>
+            <span className="title-number">04.</span>
             Contact
           </h2>
           <p className="section-description">
