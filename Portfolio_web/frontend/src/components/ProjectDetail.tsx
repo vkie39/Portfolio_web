@@ -20,6 +20,8 @@ interface ProjectDetailProps {
   onClose: () => void;
 }
 
+const SERVER_URL = 'https://portfolioweb-production-c213.up.railway.app';
+
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
   return (
     <motion.div
@@ -85,7 +87,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
             {/* 이미지 영역 */}
             <div style={{ width: '100%', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 5px 15px rgba(0,0,0,0.05)' }}>
               <img 
-                src={`http://localhost:4000${project.thumbnail}`}
+                src={`${SERVER_URL}${project.thumbnail}`}
                 alt={project.title} 
                 style={{ width: '100%', height: 'auto', display: 'block' }} 
               />

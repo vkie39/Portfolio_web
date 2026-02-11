@@ -6,19 +6,18 @@ export interface Project {
   id: string;
   title: string;
   subtitle: string;
-  thumbnail: string;    // image 대신 thumbnail
-  categories: string[]; 
+  thumbnail: string;
+  categories: string[];
   problem: string;
   role: string;
-  tech: string[];      // techStack 대신 tech
+  tech: string[];      // techStack 대신 tech로 통일
   result: string;
   metrics: string;
   link: string;
-  featured?: boolean;  // 선택 사항
-  // 아래는 기존에 없던 에러 유발 항목들입니다 (사용하려면 백엔드에도 추가해야 함)
-  award?: string;      
-  period?: string;
-  team?: number;
+  featured?: boolean;
+  award?: string;      // ?를 붙여서 선택 사항으로 만듦
+  period?: string;     // ? 추가
+  team?: number;       // ? 추가
 }
 
 // About Q&A interface

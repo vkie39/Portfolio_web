@@ -8,9 +8,10 @@ interface ProjectCardProps {
   onClick: () => void;
 }
 
-const SERVER_URL = 'https://portfolio-web-vk66.onrender.com';
+const SERVER_URL = 'https://portfolioweb-production-c213.up.railway.app';
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) => {
+  const imgUrl = `${SERVER_URL}${String(project.thumbnail).trim()}`;
   return (
     <motion.div
       className="project-card"
@@ -26,11 +27,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
 
       <div className="card-image-container">
         <div className="card-image-wrapper">
+          
           <img
-            src={`${SERVER_URL}${project.thumbnail}`} 
+            src={imgUrl} 
             alt={project.title}
             className="card-image"
             onError={(e) => {
+              console.log("IMAGE FAIL:", imgUrl, "thumbnail=", project.thumbnail);
               (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300?text=' + project.title;
             }}
           />
