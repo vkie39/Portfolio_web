@@ -41,7 +41,7 @@ const About: React.FC = () => {
           {/* [컬럼 1] 가장 왼쪽: 프로필 이미지 */}
           <div className="about-image-col">
             <div className="profile-image-wrapper">
-               <img src="../public/images/seohyun.png" alt="최서현 프로필" />
+               <img src="/images/seohyun.png" alt="최서현 프로필" />
             </div>
             <div className="profile-simple-info">
               <h3>최서현</h3>
@@ -52,7 +52,7 @@ const About: React.FC = () => {
               </div>
               <div className="resume-download-wrapper">
                 <a  
-                  href="../../public/resume.pdf"  
+                  href="/resume.pdf"  
                   download="최서현_이력서.pdf" 
                   className="download-btn"
                 >
