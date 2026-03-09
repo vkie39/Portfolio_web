@@ -1,28 +1,98 @@
+/* src/App.css */
+
+:root {
+  --color-bg-ivory: #FFFFF0;   /* 전체 배경색 */
+  --color-nav-bg: #99907c;     /* 메뉴 버튼 배경색 */
+  --color-nav-text: #FFF8EA;   /* 메뉴 버튼 글자색 */
+}
+
 .app {
-  position: relative;
+  background-color: var(--color-bg-ivory);
   min-height: 100vh;
-  background: var(--color-bg-light);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'SUIT Variable', sans-serif;
 }
 
-.main-content {
-  position: relative;
-}
-
-.main-content > div {
-  scroll-margin-top: 100px;
-}
-
-/* Background decoration */
-body::before {
-  content: '';
+/* 상단 메뉴바 스타일 */
+.top-nav {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100vw;
+  width: 100%;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  z-index: 1000;
+  background: transparent; /* 배경에 녹아들게 설정 */
+}
+
+.nav-menu {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-btn {
+  background-color: var(--color-nav-bg);
+  color: var(--color-nav-text);
+  border: none;
+  padding: 10px 24px;
+  border-radius: 25px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.nav-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.nav-btn.active {
+  background-color: #7d7564; /* 선택 시 약간 더 어두운 톤 */
+  border: 2px solid var(--color-nav-text);
+}
+
+/* 홈 화면 중앙 이미지 스타일 */
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
-  pointer-events: none;
-  z-index: 0;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.05) 0%, transparent 50%);
+}
+
+.main-image-wrapper {
+  text-align: center;
+  position: relative;
+}
+
+.main-image {
+  max-width: 400px; /* 이미지 크기는 조절 가능 */
+  height: auto;
+  border-radius: 20px;
+  /* shadow-brutal 느낌을 원하시면 아래 추가 */
+  box-shadow: 10px 10px 0px var(--color-nav-bg); 
+}
+
+.home-text {
+  margin-top: 2rem;
+}
+
+.main-title {
+  font-size: 3rem;
+  color: #5b4b5b;
+  margin-bottom: 0.5rem;
+}
+
+.main-subtitle {
+  font-size: 1.2rem;
+  color: #7d7564;
+  letter-spacing: 0.1em;
+}
+
+.content-container {
+  padding-top: 100px; /* 메뉴바에 가려지지 않게 여백 */
+  max-width: 1200px;
+  margin: 0 auto;
 }

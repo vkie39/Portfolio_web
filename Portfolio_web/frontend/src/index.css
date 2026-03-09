@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;500;700&family=Parisienne&display=swap');
 
 :root {
-  --c-pink: #fcdcf7;
   --c-blue: #dcf1fc;
   --c-ivory: #fffff0;
   --c-text-soft: #5a4a5a; /* 부드러운 텍스트 색상 */
@@ -22,25 +21,8 @@ body {
   font-family: var(--font-serif);
   color: var(--c-text-soft);
   overflow-x: hidden;
-  /* 수채화 배경 레이어 1 (베이스) */
-  background: linear-gradient(120deg, var(--c-pink), var(--c-blue));
+  background-color: #FFF8EA;
   min-height: 100vh;
-}
-
-/* 수채화 번짐 효과를 위한 오버레이 레이어 */
-body::after {
-  content: '';
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at 30% 40%, rgba(252, 220, 247, 0.6), transparent 40%),
-              radial-gradient(circle at 70% 60%, rgba(220, 241, 252, 0.6), transparent 40%),
-              linear-gradient(to bottom right, rgba(255,255,255,0.2), transparent);
-  filter: blur(60px); /* 물에 번진 듯한 느낌 */
-  z-index: -1;
-  pointer-events: none;
 }
 
 
