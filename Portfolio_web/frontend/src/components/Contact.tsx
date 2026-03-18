@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import './Contact.css';
 
@@ -8,21 +9,18 @@ const Contact: React.FC = () => {
       label: 'Email',
       value: 'jwsh171210@naver.com',
       link: 'mailto:jwsh171210@naver.com',
-      color: 'var(--color-accent)'
     },
     {
       icon: '📱',
       label: 'Phone',
       value: '010-7611-1384',
       link: 'tel:010-7611-1384',
-      color: 'var(--color-accent-2)'
     },
     {
       icon: '💻',
       label: 'GitHub',
       value: 'github.com/vkie39',
       link: 'https://github.com/vkie39',
-      color: 'var(--color-text-dark)'
     }
   ];
 
@@ -55,15 +53,11 @@ const Contact: React.FC = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.15, duration: 0.5 }}
-              whileHover={{ y: -8, boxShadow: 'var(--shadow-hover)' }}
-              style={{ '--card-color': info.color } as React.CSSProperties}
+              whileHover={{ scale: 1.05, rotate: 0, zIndex: 10 }} // 호버 시 정자세로 커짐
             >
               <div className="contact-icon">{info.icon}</div>
-              <div className="contact-content">
-                <h3 className="contact-label">{info.label}</h3>
-                <p className="contact-value">{info.value}</p>
-              </div>
-              <div className="contact-arrow">→</div>
+              <h3 className="contact-label">{info.label}</h3>
+              <p className="contact-value">{info.value}</p>
             </motion.a>
           ))}
         </div>

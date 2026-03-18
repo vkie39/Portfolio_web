@@ -1,238 +1,127 @@
+/* --- 레이아웃 설정 --- */
 .contact-section {
-  min-height: 100vh;
-  padding: 105px 20px 80px;
-  background: var(--color-bg-light);
-  position: relative;
+  min-height: calc(100vh - 100px);
+  padding: 150px 20px 80px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title {
+  font-family: 'Bungee', cursive;
+  font-size: 3rem;
+  color: #706751;
+}
+
+.title-number {
+  color: #99907c;
+  margin-right: 10px;
+}
+
+.section-description {
+  font-family: 'Orbit', sans-serif;
+  font-size: 1.1rem;
+  color: #7d7564;
+}
+
+/* --- 요청하신 카드 디자인 --- */
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin: 3rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto 80px; /* CTA와의 간격 확보 */
 }
 
 .contact-card {
-  background: white;
-  border: 4px solid var(--color-border);
-  padding: 1.0rem;
+  background: #FFF8EA;
+  border: 2.5px solid #706751;
+  padding: 15px 20px;
+  text-decoration: none;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  text-decoration: none;
-  color: var(--color-text-dark);
-  transition: all 0.3s ease;
-  box-shadow: var(--shadow-brutal);
-  position: relative;
-  overflow: hidden;
-}
-
-.contact-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 140px; 
   width: 100%;
-  height: 4px;
-  background: var(--card-color);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 6px 6px 0px #99907c;
 }
 
-.contact-card:hover::before {
-  transform: scaleX(1);
-}
+/* MZ 감성: 카드를 살짝 틀어줌 */
+.contact-card:nth-child(even) { transform: rotate(2deg); }
+.contact-card:nth-child(odd) { transform: rotate(-2deg); }
 
-.contact-card:hover .contact-arrow {
-  transform: translateX(5px);
+.contact-card:hover {
+  transform: translate(-3px, -3px) rotate(0deg); /* 호버 시 정자세 */
+  box-shadow: 10px 10px 0px #706751;
+  background: #fdf2d9;
 }
 
 .contact-icon {
-  font-size: 4rem;
-  line-height: 1;
-}
-
-.contact-content {
-  flex-grow: 1;
+  font-size: 2.2rem;
+  margin-bottom: 2px;
 }
 
 .contact-label {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--color-text-dark);
-  margin-bottom: 0.5rem;
+  font-family: 'Bungee', cursive;
+  font-size: 0.9rem;
+  color: #706751;
+  text-transform: uppercase;
+  margin: 0;
 }
 
 .contact-value {
-  font-family: var(--font-mono);
-  font-size: 1.1rem;
-  color: var(--color-text-dark);
-  opacity: 0.7;
+  font-family: 'Orbit', sans-serif;
+  font-size: 0.8rem;
+  color: #5b4b5b;
+  font-weight: 600;
+  text-align: center;
   word-break: break-all;
+  margin: 0;
 }
 
-.contact-arrow {
-  font-size: 2rem;
-  color: var(--card-color);
-  align-self: flex-end;
-  transition: transform 0.3s ease;
-}
-
+/* --- CTA 및 푸터 스타일 (기존 테마 유지) --- */
 .contact-cta {
-  margin-top: 4rem;
-  background: var(--color-text-dark);
-  border: 4px solid var(--color-border);
-  padding: 4rem;
+  background: #3b4880; /* 서현님 시그니처 컬러 사용 추천 */
+  padding: 40px;
+  border-radius: 20px;
+  color: white;
   position: relative;
   overflow: hidden;
+  margin-bottom: 60px;
 }
 
-.cta-content {
-  position: relative;
-  z-index: 2;
-}
-
-.cta-title {
-  font-family: var(--font-display);
-  font-size: 3rem;
-  font-weight: 800;
-  color: var(--color-accent);
-  margin-bottom: 1.5rem;
-  line-height: 1.2;
-}
-
-.cta-text {
-  font-family: var(--font-mono);
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: var(--color-text-light);
-  margin-bottom: 2.5rem;
-}
+.cta-title { font-family: 'Bungee', cursive; font-size: 2rem; margin-bottom: 15px; }
+.cta-text { font-family: 'Orbit', sans-serif; opacity: 0.9; line-height: 1.6; }
 
 .cta-badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .badge {
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  font-weight: 700;
-  padding: 0.8rem 1.5rem;
-  background: white;
-  border: 3px solid var(--color-border);
-  color: var(--color-text-dark);
-  transition: all 0.3s ease;
-}
-
-.badge:hover {
-  background: var(--color-accent);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 4px 4px 0 var(--color-border);
-}
-
-.cta-decorative {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.decorative-shape {
-  position: absolute;
-  border: 3px solid rgba(255, 107, 53, 0.3);
-}
-
-.shape-1 {
-  width: 200px;
-  height: 200px;
-  top: -50px;
-  right: -50px;
-  border-radius: 50%;
-  animation: float 6s ease-in-out infinite;
-}
-
-.shape-2 {
-  width: 150px;
-  height: 150px;
-  bottom: 50px;
-  right: 100px;
-  transform: rotate(45deg);
-  animation: float 8s ease-in-out infinite reverse;
-}
-
-.shape-3 {
-  width: 100px;
-  height: 100px;
-  top: 150px;
-  right: 50px;
-  border-radius: 50%;
-  animation: float 7s ease-in-out infinite;
-  animation-delay: 1s;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-family: 'Orbit', sans-serif;
 }
 
 .site-footer {
-  margin-top: 4rem;
-  padding: 2rem 0;
   text-align: center;
-  border-top: 3px solid var(--color-border);
-}
-
-.site-footer p {
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  color: var(--color-text-dark);
-  opacity: 0.6;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cta-decorative {
-    display: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .contact-section {
-    padding: 100px 0 60px;
-  }
-
-  .contact-card {
-    padding: 2rem;
-  }
-
-  .contact-icon {
-    font-size: 3rem;
-  }
-
-  .contact-label {
-    font-size: 1.2rem;
-  }
-
-  .contact-value {
-    font-size: 1rem;
-  }
-
-  .contact-cta {
-    padding: 2.5rem;
-  }
-
-  .cta-title {
-    font-size: 2rem;
-  }
-
-  .cta-text {
-    font-size: 1rem;
-  }
+  padding: 20px;
+  font-family: 'Orbit', sans-serif;
+  font-size: 0.8rem;
+  color: #99907c;
 }
