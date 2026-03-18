@@ -17,8 +17,9 @@ const Projects: React.FC = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get('https://portfolioweb-production-c213.up.railway.app/api/projects');
-      setProjects(response.data);
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE}/api/projects`);
+      const realData = Array.isArray(response.data) ? response.data : (response.data.projects || []);
+      setProjects(realData.data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching projects:', error);

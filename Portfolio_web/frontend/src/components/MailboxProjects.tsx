@@ -24,11 +24,21 @@ const MailboxProjects: React.FC = () => {
   const [isOpened, setIsOpened] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios.get('https://portfolioweb-production-c213.up.railway.app/api/projects')
-      .then(res => { setProjects(res.data); setLoading(false); })
-      .catch(err => { console.error(err); setLoading(false); });
-  }, []);
+useEffect(() => {
+  axios.get(`${import.meta.env.VITE_API_BASE}/api/projects`)
+    .then(res => {
+      // 서버에서 보낸 진짜 데이터가 어디에 있는지 확인하는 로직입니다.
+      // res.data가 배열이면 그대로 쓰고, 아니면 그 안의 특정 필드를 찾아봅니다.
+      const realData = Array.isArray(res.data) ? res.data : (res.data.projects || res.data.data || []);
+      setProjects(realData);
+      setLoading(false);
+    })
+    .catch(err => {
+      console.error("데이터 로드 에러:", err);
+      setProjects([]); // 에러 발생 시 빈 배열로 초기화하여 .map 에러 방지
+      setLoading(false);
+    });
+}, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },

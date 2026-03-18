@@ -88,14 +88,17 @@ const Envelope = ({ item, index }: { item: AboutQA; index: number }) => {
 };
 
 const ResumeSection = () => {
-  const [qaData, setQaData] = useState<AboutQA[]>([]); // 서버 데이터를 저장할 상태
+  const [qaData, setQaData] = useState<AboutQA[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 2. 컴포넌트가 나타날 때 서버에서 데이터를 가져옵니다.
   useEffect(() => {
-    axios.get('https://portfolioweb-production-c213.up.railway.app/api/about')
+    // 환경 변수 기반 API 호출
+    axios.get(`${import.meta.env.VITE_API_BASE}/api/about`)
       .then(res => {
-        setQaData(res.data);
+        console.log("전체 응답 데이터:", res.data);
+        // 데이터가 배열인지 확인 후 상태 업데이트
+        const dataToSet = Array.isArray(res.data) ? res.data : [];
+        setQaData(dataToSet);
         setLoading(false);
       })
       .catch(err => {
@@ -124,16 +127,22 @@ const ResumeSection = () => {
         Self Introduction
       </motion.h2>
 
-      {/* 3. 서버에서 가져온 6개의 데이터를 그리드로 표시 */}
+      {/* 그리드 영역: 데이터가 있을 때만 map 실행 */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
         gap: '80px 40px',
         maxWidth: '900px'
       }}>
-        {qaData.map((item, index) => (
-          <Envelope key={index} item={item} index={index} />
-        ))}
+        {qaData.length > 0 ? (
+          qaData.map((item, index) => (
+            <Envelope key={index} item={item} index={index} />
+          ))
+        ) : (
+          <div style={{ gridColumn: 'span 3', textAlign: 'center', color: '#888' }}>
+            표시할 데이터가 없습니다. (데이터 개수: {qaData.length})
+          </div>
+        )}
       </div>
     </div>
   );

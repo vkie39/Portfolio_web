@@ -20,7 +20,7 @@ interface ProjectDetailProps {
   onClose: () => void;
 }
 
-const SERVER_URL = 'https://portfolioweb-production-c213.up.railway.app';
+const SERVER_URL = import.meta.env.VITE_API_BASE;
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
   return (
@@ -114,7 +114,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
           {/* 하단: 전체 요약 및 링크 */}
           <footer style={{ marginTop: '20px', padding: '25px', backgroundColor: '#faf7f0', borderRadius: '10px' }}>
             <p style={{ fontSize: '1rem', fontStyle: 'italic', color: '#666', marginBottom: '20px' }}>"{project.subtitle}"</p>
-            {project.link && (
+            {/*project.link && (
               <a 
                 href={project.link} 
                 target="_blank" 
@@ -128,8 +128,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                 onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
                 View Project Source (GitHub)
-              </a>
-            )}
+              </a> 
+            )*/}
           </footer>
         </div>
       </motion.div>

@@ -4,7 +4,10 @@ const cors = require("cors");
 const { subtle } = require("crypto");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // 내 리액트 앱 주소
+  credentials: true                // 쿠키나 인증 헤더 허용 (필요 시)
+}));
 app.use(express.json());
 
 app.use("/images", express.static(path.join(__dirname, "image")));

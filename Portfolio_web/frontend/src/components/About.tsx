@@ -5,8 +5,8 @@ import './About.css';
 const About: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
-  const API_BASE_URL = (process as any).env.REACT_APP_API_URL || 'portfolioweb-production-c213.up.railway.app';
-
+  const API_BASE_URL = import.meta.env.VITE_API_BASE;
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
