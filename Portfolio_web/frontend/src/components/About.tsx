@@ -5,7 +5,7 @@ import './About.css';
 const About: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE;
+  const API_BASE_URL = "https://portfolio-web-szwm.onrender.com";
 
   useEffect(() => {
     const fetchData = async () => {
