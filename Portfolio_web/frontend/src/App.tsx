@@ -1,4 +1,3 @@
-// src/App.tsx
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import MailboxProjects from './components/MailboxProjects';
@@ -13,14 +12,14 @@ function App() {
   const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'projects', label: 'Projects' },
+    { id: 'resume', label: 'Resume' },
     { id: 'about', label: 'About' },
     { id: 'contact', label: 'Contact' },
-    { id: 'resume', label: 'Resume' },
   ];
 
   return (
     <div className="app">
-      {/* --- 1. 상단 메뉴바 --- */}
+      {/* 1. 상단 메뉴바 (고정형 Header) */}
       <nav className="top-nav">
         <div className="nav-menu">
           {navItems.map((item) => (
@@ -35,27 +34,32 @@ function App() {
         </div>
       </nav>
 
+      {/* 2. 메인 콘텐츠 영역 */}
       <AnimatePresence mode="wait">
         {activeTab === 'home' ? (
-          /* --- 2. 홈 화면: 중앙 이미지 (main.png) --- */
-          <motion.div
-            key="home"
+          <motion.div 
+            key="home" 
             className="home-container"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
+            {/* 왼쪽 하단 메인 이미지 */}
             <div className="main-image-wrapper">
               <img src="/images/main.png" alt="Main" className="main-image" />
-              <div className="home-text">
-                <h1 className="main-title">Seohyun's Portfolio</h1>
-                <p className="main-subtitle">Welcome to my space</p>
-              </div>
             </div>
+
+            {/* 중앙 좌측 애니메이션 이미지 (바닥에서 스르륵) */}
+            <motion.div 
+              className="main-write-container"
+              initial={{ opacity: 1, y: 600 }}   /* 처음부터 선명하게, 아래에서 시작 */
+              animate={{ opacity: 1, y: 0 }}     /* 제자리로 이동 */
+              transition={{ duration: 1.5, ease: "easeOut" }}
+            >
+              <img src="/images/main_write_shorter.png" alt="Main Write" className="write-image" />
+            </motion.div>
           </motion.div>
         ) : (
-          /* --- 3. 콘텐츠 페이지 --- */
+          /* 홈이 아닌 모든 탭 (About, Projects, Contact, Resume) */
           <motion.div
             key={activeTab}
             className="content-container"
@@ -66,8 +70,8 @@ function App() {
           >
             <main className="main-content">
               {activeTab === 'projects' && <MailboxProjects />}
-              {activeTab === 'about' && <div id="about"><About /></div>}
-              {activeTab === 'contact' && <div id="contact"><Contact /></div>}
+              {activeTab === 'about' && <About />}
+              {activeTab === 'contact' && <Contact />}
               {activeTab === 'resume' && <ResumeSection />}
             </main>
           </motion.div>

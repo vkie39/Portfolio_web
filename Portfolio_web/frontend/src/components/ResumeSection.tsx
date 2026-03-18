@@ -113,8 +113,8 @@ const ResumeSection = () => {
     <div style={{
       width: '100%', minHeight: '100vh',
       display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center',
-      padding: '100px 20px', background: 'transparent'
+      alignItems: 'center', justifyContent: 'flex-start',
+      padding: '20px 50px 20px', background: 'transparent'
     }}>
       <motion.h2 
         initial={{ opacity: 0, y: -20 }}

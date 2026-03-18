@@ -1,30 +1,46 @@
-/* src/App.css */
-
-:root {
-  --color-bg-ivory: #FFFFF0;   /* 전체 배경색 */
-  --color-nav-bg: #99907c;     /* 메뉴 버튼 배경색 */
-  --color-nav-text: #FFF8EA;   /* 메뉴 버튼 글자색 */
-}
-
-.app {
-  background-color: var(--color-bg-ivory);
-  min-height: 100vh;
-  width: 100%;
+html, body, #root, .app {
+  background-color: #FFFFF0 !important; /* 전체 문서의 배경을 아이보리로 강제 */
   margin: 0;
   padding: 0;
-  font-family: 'SUIT Variable', sans-serif;
+  min-height: 100vh;
 }
 
-/* 상단 메뉴바 스타일 */
+/* --- 1. 전역 스타일 및 변수 --- */
+:root {
+  --color-bg-ivory: #FFFFF0;
+  --color-text-dark: #706751;
+  --color-accent: #3b4880;
+  --font-display: 'Bungee', cursive;
+  --font-main: 'Orbit', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg-ivory);
+  font-family: var(--font-main);
+  color: var(--color-text-dark);
+  overflow-x: hidden;
+}
+
+/* --- 2. 상단 메뉴바 (Header) --- */
 .top-nav {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  padding: 20px 0;
+  height: 100px; /* 고정 높이 */
+  background-color: var(--color-bg-ivory);
   display: flex;
   justify-content: center;
-  z-index: 1000;
-  background: transparent; /* 배경에 녹아들게 설정 */
+  align-items: center;
+  z-index: 10000; /* 최상단 유지 */
+  /* 필요 시 하단에 얇은 선 추가 */
+  border-bottom: 1px solid rgba(112, 103, 81, 0.1);
 }
 
 .nav-menu {
@@ -33,66 +49,120 @@
 }
 
 .nav-btn {
-  background-color: var(--color-nav-bg);
-  color: var(--color-nav-text);
+  background-color: #99907c;
+  color: white;
   border: none;
-  padding: 10px 24px;
+  padding: 10px 22px;
   border-radius: 25px;
-  font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .nav-btn:hover {
   transform: translateY(-2px);
-  filter: brightness(1.1);
+  background-color: #706751;
 }
 
 .nav-btn.active {
-  background-color: #7d7564; /* 선택 시 약간 더 어두운 톤 */
-  border: 2px solid var(--color-nav-text);
+  background-color: var(--color-accent);
+  transform: scale(1.05);
 }
 
-/* 홈 화면 중앙 이미지 스타일 */
+/* --- 3. 홈 화면 레이아웃 (Home) --- */
+/* --- 홈 화면 레이아웃 (Home) 최적화 --- */
 .home-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #FFFFF0;
+  width: 100%;
   height: 100vh;
+  position: relative;
+  padding-top: 100px; /* 메뉴바 여백 */
+  display: flex;
+  align-items: center; /* 세로 중앙 */
+  justify-content: center; /* 가로 중앙 */
+  overflow: hidden;
 }
 
-.main-image-wrapper {
-  text-align: center;
+/* 1. "who is vickie" 이미지 (왼쪽 배경 느낌) */
+.main-write-container {
+  position: absolute;
+  top: 0.5%; 
+  left: 50%; /* 30% ~ 40% 사이에서 위치를 조정해 보세요 */
+  transform: translate(-50%, -50%);
+  width: 60%; /* 크기를 화면의 60% 정도로 제한 */
+  max-width: 510px;
+  z-index: 1; /* 카드보다 뒤로 */
+  pointer-events: none;
+}
+
+.write-image {
+  width: 100%;
+  height: auto;
+  opacity: 0.85; /* 살짝 투명하게 해서 카드가 더 잘 보이게 함 */
+}
+
+/* 2. "Seohyun's Portfolio" 카드 (이미지 위에 얹혀진 느낌) */
+.main-content-card {
   position: relative;
+  z-index: 5; /* 이미지보다 앞으로 */
+  background: #FFFFF0;
+  padding: 40px 50px;
+  border-radius: 30px;
+  box-shadow: 0 30px 60px rgba(112, 103, 81, 0.15); /* 부드러운 그림자 */
+  max-width: 550px;
+  width: 90%;
+  text-align: center;
+  /* 위치를 이미지와 살짝 겹치게 오른쪽으로 이동 */
+  margin-left: 20%; 
+  margin-top: -50px; /* 위로 살짝 들어올림 */
+  border: 1px solid rgba(112, 103, 81, 0.1);
+}
+
+/* 3. 왼쪽 하단 main.png (장식용) 컨테이너 */
+.main-image-wrapper {
+  position: absolute;
+  bottom: 35px;
+  /* left: 0 대신 여기서 위치를 조절하는 게 가장 정확합니다 */
+  left: 250px; 
+  width: auto; /* 고정 너비를 지우고 이미지 크기에 맡깁니다 */
+  z-index: 2;
 }
 
 .main-image {
-  max-width: 400px; /* 이미지 크기는 조절 가능 */
+  /* 이미지 자체의 left 설정은 삭제하세요 (작동하지 않음) */
+  max-width: 390px;
   height: auto;
   border-radius: 20px;
-  /* shadow-brutal 느낌을 원하시면 아래 추가 */
-  box-shadow: 10px 10px 0px var(--color-nav-bg); 
+  
+  /* 그림자 효과 (변수 대신 직접 색상을 넣어 확실히 보이게 했습니다) */
+  box-shadow: 15px 15px 30px rgba(112, 103, 81, 0.2); 
+  
+  transition: transform 0.3s ease;
 }
 
-.home-text {
-  margin-top: 2rem;
+/* 이미지 위로 마우스를 올렸을 때 효과 (선택사항) */
+.main-image:hover {
+  transform: scale(1.05);
 }
 
-.main-title {
-  font-size: 3rem;
-  color: #5b4b5b;
-  margin-bottom: 0.5rem;
-}
-
-.main-subtitle {
-  font-size: 1.2rem;
-  color: #7d7564;
-  letter-spacing: 0.1em;
-}
-
+/* --- 4. 일반 페이지 컨테이너 (About, Projects 등) --- */
 .content-container {
-  padding-top: 100px; /* 메뉴바에 가려지지 않게 여백 */
+  margin-top: 100px; /* 메뉴바 아래에서 시작 */
+  min-height: calc(100vh - 100px);
+  padding: 60px 20px;
+  width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- 5. 반응형 조절 (모바일) --- */
+@media (max-width: 768px) {
+  .top-nav { height: 80px; }
+  .nav-btn { padding: 8px 15px; font-size: 0.8rem; }
+  .content-container, .home-container { padding-top: 80px; }
+  .main-write-container { max-width: 90%; }
+  .main-image-wrapper { width: 150px; }
 }
