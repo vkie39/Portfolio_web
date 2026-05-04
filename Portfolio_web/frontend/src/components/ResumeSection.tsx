@@ -41,9 +41,17 @@ const Envelope = ({ item, index }: { item: AboutQA; index: number }) => {
         }} />
         
         <span style={{ 
-          zIndex: 3, fontSize: '0.9rem', fontWeight: 700, color: '#8b7e6e', marginTop: '20px' 
+          zIndex: 3, fontSize: '0.9rem', fontWeight: 700, color: '#8b7e6e', marginTop: '20px',
+          textAlign: 'center', padding: '0 10px'
         }}>
-          Message {index + 1}
+          {
+            index === 0 ? "나는 누구?" :
+            index === 1 ? "기술적 강점" :
+            index === 2 ? "협업 스타일" :
+            index === 3 ? "강점과 약점" :
+            index === 4 ? "기억에 남는 경험" :
+            index === 5 ? "계획 및 포부" : `Message ${index + 1}`
+          }
         </span>
       </motion.div>
 
@@ -114,14 +122,14 @@ const ResumeSection = () => {
       width: '100%', minHeight: '100vh',
       display: 'flex', flexDirection: 'column',
       alignItems: 'center', justifyContent: 'flex-start',
-      padding: '20px 50px 20px', background: 'transparent'
+      padding: '60px 50px 20px', background: 'transparent'
     }}>
       <motion.h2 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         style={{ 
           fontFamily: 'var(--font-display)', fontSize: '3rem', 
-          marginBottom: '100px', color: '#5b4b5b' 
+          marginBottom: '150px', color: '#5b4b5b' 
         }}
       >
         Self Introduction
