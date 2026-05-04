@@ -6,6 +6,9 @@ export interface Project {
   id: string;
   title: string;
   subtitle: string;
+  SpecProblem: string;
+  mission: string;
+  procedure: string;
   thumbnail: string;
   categories: string[];
   problem: string;

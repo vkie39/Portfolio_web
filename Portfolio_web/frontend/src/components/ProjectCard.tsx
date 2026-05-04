@@ -98,7 +98,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
 
         <h3 className="card-title">{project.title}</h3>
 
-        <p className="card-subtitle">{project.subtitle}</p>
+        <p className="card-subtitle">{project.SpecProblem}</p>
 
        
 

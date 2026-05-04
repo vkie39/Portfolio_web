@@ -88,9 +88,8 @@ body {
 /* 1. "who is vickie" 이미지 (왼쪽 배경 느낌) */
 .main-write-container {
   position: absolute;
-  top: 0.5%; 
-  left: 50%; /* 30% ~ 40% 사이에서 위치를 조정해 보세요 */
-  transform: translate(-50%, -50%);
+  bottom: 0; 
+  right: 10%; 
   width: 60%; /* 크기를 화면의 60% 정도로 제한 */
   max-width: 510px;
   z-index: 1; /* 카드보다 뒤로 */
@@ -123,16 +122,16 @@ body {
 /* 3. 왼쪽 하단 main.png (장식용) 컨테이너 */
 .main-image-wrapper {
   position: absolute;
-  bottom: 35px;
+  bottom: 30px;
   /* left: 0 대신 여기서 위치를 조절하는 게 가장 정확합니다 */
-  left: 250px; 
+  left: 10%; 
   width: auto; /* 고정 너비를 지우고 이미지 크기에 맡깁니다 */
   z-index: 2;
 }
 
 .main-image {
   /* 이미지 자체의 left 설정은 삭제하세요 (작동하지 않음) */
-  max-width: 390px;
+  max-width: 450px;
   height: auto;
   border-radius: 20px;
   

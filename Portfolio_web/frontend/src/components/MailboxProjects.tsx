@@ -7,6 +7,9 @@ interface Project {
   id: string;
   title: string;
   subtitle: string;
+  SpecProblem: string;
+  mission: string;
+  procedure: string;
   thumbnail: string;
   categories: any[]; 
   tech: string[];
@@ -20,22 +23,19 @@ interface Project {
 const MailboxProjects: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  // isOpened 상태로 변경하여 한 번의 액션으로 고정되게 합니다.
   const [isOpened, setIsOpened] = useState(false);
   const [loading, setLoading] = useState(true);
 
 useEffect(() => {
   axios.get(`${import.meta.env.VITE_API_BASE}/api/projects`)
     .then(res => {
-      // 서버에서 보낸 진짜 데이터가 어디에 있는지 확인하는 로직입니다.
-      // res.data가 배열이면 그대로 쓰고, 아니면 그 안의 특정 필드를 찾아봅니다.
       const realData = Array.isArray(res.data) ? res.data : (res.data.projects || res.data.data || []);
       setProjects(realData);
       setLoading(false);
     })
     .catch(err => {
       console.error("데이터 로드 에러:", err);
-      setProjects([]); // 에러 발생 시 빈 배열로 초기화하여 .map 에러 방지
+      setProjects([]); 
       setLoading(false);
     });
 }, []);
@@ -123,10 +123,8 @@ useEffect(() => {
 
       {/* 2. 편지함 (클릭 시 상태 고정) */}
       <motion.div
-        // onMouseEnter를 통해 갖다 대기만 해도 열리게 하거나, 
-        // 확실한 동작을 원하시면 onClick만 사용하셔도 됩니다.
         onMouseEnter={() => setIsOpened(true)} 
-        onClick={() => setIsOpened(!isOpened)} // 클릭 시 열고 닫기 가능
+        onClick={() => setIsOpened(!isOpened)} 
         initial={{ y: 0 }}
         animate={{ 
           y: isOpened ? 300 : 0, 
@@ -170,7 +168,6 @@ useEffect(() => {
         }} />
       </motion.div>
 
-      {/* 상세 모달 */}
       <AnimatePresence>
         {selectedProject && (
           <ProjectDetail project={selectedProject} onClose={() => setSelectedProject(null)} />

@@ -5,6 +5,9 @@ interface Project {
   id: string;
   title: string;
   subtitle: string;
+  SpecProblem: string;
+  mission: string;
+  procedure: string;
   thumbnail: string;
   categories: any[];
   tech: string[];
@@ -111,25 +114,38 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
             </div>
           </div>
 
-          {/* 하단: 전체 요약 및 링크 */}
-          <footer style={{ marginTop: '20px', padding: '25px', backgroundColor: '#faf7f0', borderRadius: '10px' }}>
-            <p style={{ fontSize: '1rem', fontStyle: 'italic', color: '#666', marginBottom: '20px' }}>"{project.subtitle}"</p>
-            {/*project.link && (
-              <a 
-                href={project.link} 
-                target="_blank" 
-                rel="noreferrer"
-                style={{
-                  display: 'inline-block', padding: '10px 25px', backgroundColor: 'var(--c-accent-gold)',
-                  color: 'white', textDecoration: 'none', borderRadius: '30px', fontWeight: 600,
-                  fontSize: '0.9rem', transition: 'transform 0.2s'
-                }}
-                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-              >
-                View Project Source (GitHub)
-              </a> 
-            )*/}
+          {/* 하단 푸터 영역: 4종 세트 (Subtitle, SpecProblem, Mission, Procedure) */}
+          <footer style={{ 
+            marginTop: '10px', 
+            padding: '30px', 
+            backgroundColor: '#faf7f0', 
+            borderRadius: '10px',
+            border: '1px solid #f0e6d2',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px'
+          }}>
+            <div style={{ borderBottom: '1px solid #e8dfc9', paddingBottom: '15px' }}>
+              <h4 style={{ color: '#8b7e6e', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Summary</h4>
+              <p style={{ fontSize: '1.1rem', fontStyle: 'italic', color: '#444', fontWeight: 500 }}>"{project.subtitle}"</p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
+              <div>
+                <h5 style={{ color: '#3b4880', marginBottom: '5px', fontSize: '0.95rem' }}>Specific Problem</h5>
+                <p style={{ fontSize: '0.9rem', color: '#666', lineHeight: 1.5 }}>{project.SpecProblem}</p>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div>
+                  <h5 style={{ color: '#3b4880', marginBottom: '5px', fontSize: '0.95rem' }}>Mission</h5>
+                  <p style={{ fontSize: '0.9rem', color: '#666', lineHeight: 1.5 }}>{project.mission}</p>
+                </div>
+                <div>
+                  <h5 style={{ color: '#3b4880', marginBottom: '5px', fontSize: '0.95rem' }}>Procedure</h5>
+                  <p style={{ fontSize: '0.9rem', color: '#666', lineHeight: 1.5 }}>{project.procedure}</p>
+                </div>
+              </div>
+            </div>
           </footer>
         </div>
       </motion.div>
