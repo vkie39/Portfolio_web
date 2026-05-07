@@ -7,9 +7,9 @@ Frontend: TypeScript, CSS, React,
 
 
 임시 실행: http://localhost:5173/
+https://portfolio-web-389ba.web.app/
 
-공식 사이트 링크: https://portfolio-web-389ba.web.app/
-
+공식 사이트 링크: 
 
 
 임시 실행: npm run dev
