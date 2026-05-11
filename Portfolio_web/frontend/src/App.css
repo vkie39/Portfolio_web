@@ -72,83 +72,65 @@ body {
 }
 
 /* --- 3. 홈 화면 레이아웃 (Home) --- */
-/* --- 홈 화면 레이아웃 (Home) 최적화 --- */
 .home-container {
   background-color: #FFFFF0;
   width: 100%;
   height: 100vh;
-  position: relative;
   padding-top: 100px; /* 메뉴바 여백 */
   display: flex;
-  align-items: center; /* 세로 중앙 */
+  align-items: flex-end; /* 하단 정렬 */
   justify-content: center; /* 가로 중앙 */
+  gap: 190px; /* 이미지 사이 간격 고정 */
   overflow: hidden;
+  position: relative;
 }
 
-/* 1. "who is vickie" 이미지 (왼쪽 배경 느낌) */
+/* 1. "who is vickie" 이미지 (오른쪽) */
 .main-write-container {
-  position: absolute;
-  bottom: 0; 
-  right: 10%; 
-  width: 60%; /* 크기를 화면의 60% 정도로 제한 */
+  position: relative;
+  width: auto;
   max-width: 510px;
-  z-index: 1; /* 카드보다 뒤로 */
+  z-index: 1;
   pointer-events: none;
+  flex: 0 1 auto;
 }
 
 .write-image {
   width: 100%;
   height: auto;
-  opacity: 0.85; /* 살짝 투명하게 해서 카드가 더 잘 보이게 함 */
+  opacity: 0.85;
+  display: block;
 }
 
-/* 2. "Seohyun's Portfolio" 카드 (이미지 위에 얹혀진 느낌) */
+/* 2. "Seohyun's Portfolio" 카드 (사용되지 않음) */
 .main-content-card {
-  position: relative;
-  z-index: 5; /* 이미지보다 앞으로 */
-  background: #FFFFF0;
-  padding: 40px 50px;
-  border-radius: 30px;
-  box-shadow: 0 30px 60px rgba(112, 103, 81, 0.15); /* 부드러운 그림자 */
-  max-width: 550px;
-  width: 90%;
-  text-align: center;
-  /* 위치를 이미지와 살짝 겹치게 오른쪽으로 이동 */
-  margin-left: 20%; 
-  margin-top: -50px; /* 위로 살짝 들어올림 */
-  border: 1px solid rgba(112, 103, 81, 0.1);
+  display: none;
 }
 
 /* 3. 왼쪽 하단 main.png (장식용) 컨테이너 */
 .main-image-wrapper {
-  position: absolute;
-  bottom: 30px;
-  /* left: 0 대신 여기서 위치를 조절하는 게 가장 정확합니다 */
-  left: 10%; 
-  width: auto; /* 고정 너비를 지우고 이미지 크기에 맡깁니다 */
+  position: relative;
+  margin-bottom: 30px; /* 30px 위로 띄움 */
   z-index: 2;
+  flex: 0 1 auto;
 }
 
 .main-image {
-  /* 이미지 자체의 left 설정은 삭제하세요 (작동하지 않음) */
   max-width: 450px;
+  width: 100%;
   height: auto;
   border-radius: 20px;
-  
-  /* 그림자 효과 (변수 대신 직접 색상을 넣어 확실히 보이게 했습니다) */
   box-shadow: 15px 15px 30px rgba(112, 103, 81, 0.2); 
-  
   transition: transform 0.3s ease;
 }
 
-/* 이미지 위로 마우스를 올렸을 때 효과 (선택사항) */
 .main-image:hover {
   transform: scale(1.05);
 }
 
 /* --- 4. 일반 페이지 컨테이너 (About, Projects 등) --- */
 .content-container {
-  margin-top: 100px; /* 메뉴바 아래에서 시작 */
+  margin-top: 100px; 
   min-height: calc(100vh - 100px);
   padding: 60px 20px;
   width: 100%;
@@ -161,7 +143,28 @@ body {
 @media (max-width: 768px) {
   .top-nav { height: 80px; }
   .nav-btn { padding: 8px 15px; font-size: 0.8rem; }
-  .content-container, .home-container { padding-top: 80px; }
-  .main-write-container { max-width: 90%; }
-  .main-image-wrapper { width: 150px; }
+  .content-container { padding-top: 80px; }
+  
+  .home-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    min-height: 100vh;
+    padding: 120px 20px 50px;
+    gap: 50px;
+  }
+
+  .main-image-wrapper {
+    margin-bottom: 0;
+    width: 80%;
+    max-width: 300px;
+    order: 2; /* 이미지를 아래로 */
+  }
+
+  .main-write-container {
+    width: 100%;
+    max-width: 400px;
+    order: 1; /* 글씨 이미지를 위로 */
+  }
 }
