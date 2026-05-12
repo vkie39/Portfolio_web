@@ -97,56 +97,29 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
             </div>
 
             {/* 상세 텍스트 영역 */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', fontFamily: 'var(--font-serif)', color: '#555', lineHeight: 1.6 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '25px', fontFamily: 'var(--font-serif)', color: '#555', lineHeight: 1.6 }}>
               <div>
-                <h4 style={{ color: '#8b7e6e', marginBottom: '5px', fontSize: '1rem' }}>Problem & Need</h4>
-                <p style={{ fontSize: '0.95rem' }}>{project.problem}</p>
+                <h4 style={{ color: '#8b7e6e', marginBottom: '8px', fontSize: '1rem', borderLeft: '3px solid var(--c-accent-gold)', paddingLeft: '10px' }}>My Role</h4>
+                <p style={{ fontSize: '1rem', fontWeight: 800, color: '#333', letterSpacing: '-0.02em' }}>{project.role}</p>
               </div>
               <div>
-                <h4 style={{ color: '#8b7e6e', marginBottom: '5px', fontSize: '1rem' }}>My Role</h4>
-                <p style={{ fontSize: '0.95rem' }}>{project.role}</p>
-              </div>
-              <div>
-                <h4 style={{ color: '#8b7e6e', marginBottom: '5px', fontSize: '1rem' }}>Key Result</h4>
-                <p style={{ fontSize: '1rem', fontWeight: 600, color: '#444' }}>{project.result}</p>
-                {project.metrics && <p style={{ fontSize: '0.85rem', color: 'var(--c-accent-gold)', marginTop: '5px' }}>📈 {project.metrics}</p>}
+                <h4 style={{ color: '#8b7e6e', marginBottom: '8px', fontSize: '1rem', borderLeft: '3px solid var(--c-accent-gold)', paddingLeft: '10px' }}>Key Result</h4>
+                <div style={{ fontSize: '1rem', fontWeight: 600, color: '#444' }}>
+                  {project.result.split('-').filter(item => item.trim() !== '').map((item, index) => (
+                    <p key={index} style={{ margin: '6px 0' }}>• {item.trim()}</p>
+                  ))}
+                </div>
+                {project.metrics && (
+                  <div style={{ fontSize: '0.85rem', color: 'var(--c-accent-gold)', marginTop: '12px', padding: '10px', backgroundColor: '#fdf8ec', borderRadius: '5px' }}>
+                    <span style={{ display: 'block', marginBottom: '4px', fontWeight: 700 }}>📈 Metrics:</span>
+                    {project.metrics.split('-').filter(item => item.trim() !== '').map((item, index) => (
+                      <p key={index} style={{ marginLeft: '10px', margin: '2px 0' }}>• {item.trim()}</p>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
-
-          {/* 하단 푸터 영역: 4종 세트 (Subtitle, SpecProblem, Mission, Procedure) */}
-          <footer style={{ 
-            marginTop: '10px', 
-            padding: '30px', 
-            backgroundColor: '#faf7f0', 
-            borderRadius: '10px',
-            border: '1px solid #f0e6d2',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px'
-          }}>
-            <div style={{ borderBottom: '1px solid #e8dfc9', paddingBottom: '15px' }}>
-              <h4 style={{ color: '#8b7e6e', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Summary</h4>
-              <p style={{ fontSize: '1.1rem', fontStyle: 'italic', color: '#444', fontWeight: 500 }}>"{project.subtitle}"</p>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
-              <div>
-                <h5 style={{ color: '#3b4880', marginBottom: '5px', fontSize: '0.95rem' }}>Specific Problem</h5>
-                <p style={{ fontSize: '0.9rem', color: '#666', lineHeight: 1.5 }}>{project.SpecProblem}</p>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-                <div>
-                  <h5 style={{ color: '#3b4880', marginBottom: '5px', fontSize: '0.95rem' }}>Mission</h5>
-                  <p style={{ fontSize: '0.9rem', color: '#666', lineHeight: 1.5 }}>{project.mission}</p>
-                </div>
-                <div>
-                  <h5 style={{ color: '#3b4880', marginBottom: '5px', fontSize: '0.95rem' }}>Procedure</h5>
-                  <p style={{ fontSize: '0.9rem', color: '#666', lineHeight: 1.5 }}>{project.procedure}</p>
-                </div>
-              </div>
-            </div>
-          </footer>
         </div>
       </motion.div>
     </motion.div>
