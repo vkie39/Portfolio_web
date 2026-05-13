@@ -18,8 +18,9 @@ const Projects: React.FC = () => {
   const fetchProjects = async () => {
     try {
       const response = await axios.get(`${"https://portfolio-web-szwm.onrender.com"}/api/projects`);
+      // ✅ 수정: 서버가 배열을 직접 반환하므로 .data를 한 번 더 꺼내지 않아야 함
       const realData = Array.isArray(response.data) ? response.data : (response.data.projects || []);
-      setProjects(realData.data);
+      setProjects(realData); // ← 핵심 수정: realData.data → realData
       setLoading(false);
     } catch (error) {
       console.error('Error fetching projects:', error);
