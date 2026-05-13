@@ -2,27 +2,35 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 
-// 1. 서버에서 받아올 데이터의 타입 정의
 interface AboutQA {
   question: string;
   answer: string;
 }
 
-// 개별 봉투 컴포넌트
 const Envelope = ({ item, index }: { item: AboutQA; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const labels = [
+    '나는 누구?',
+    '기술적 강점',
+    '협업 스타일',
+    '강점과 약점',
+    '기억에 남는 경험',
+    '계획 및 포부',
+  ];
+
   return (
-    <div 
+    <div
       style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* --- 편지 봉투 디자인 --- */}
+      {/* 봉투 */}
       <motion.div
         whileHover={{ y: -10, scale: 1.05 }}
         style={{
-          width: '180px', height: '120px',
+          width: '180px',
+          height: '120px',
           backgroundColor: '#f9f3e8',
           borderRadius: '8px',
           border: '2px solid #e0d7c6',
@@ -30,32 +38,41 @@ const Envelope = ({ item, index }: { item: AboutQA; index: number }) => {
           cursor: 'pointer',
           position: 'relative',
           overflow: 'hidden',
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        <div style={{
-          position: 'absolute', top: 0, left: 0,
-          width: '0', height: '0',
-          borderLeft: '90px solid transparent', borderRight: '90px solid transparent',
-          borderTop: '50px solid #ece2d0', zIndex: 2
-        }} />
-        
-        <span style={{ 
-          zIndex: 3, fontSize: '0.9rem', fontWeight: 700, color: '#8b7e6e', marginTop: '20px',
-          textAlign: 'center', padding: '0 10px'
-        }}>
-          {
-            index === 0 ? "나는 누구?" :
-            index === 1 ? "기술적 강점" :
-            index === 2 ? "협업 스타일" :
-            index === 3 ? "강점과 약점" :
-            index === 4 ? "기억에 남는 경험" :
-            index === 5 ? "계획 및 포부" : `Message ${index + 1}`
-          }
+        {/* 봉투 뚜껑 삼각형 */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '0',
+            height: '0',
+            borderLeft: '90px solid transparent',
+            borderRight: '90px solid transparent',
+            borderTop: '50px solid #ece2d0',
+            zIndex: 2,
+          }}
+        />
+        <span
+          style={{
+            zIndex: 3,
+            fontSize: '0.9rem',
+            fontWeight: 700,
+            color: '#8b7e6e',
+            marginTop: '20px',
+            textAlign: 'center',
+            padding: '0 10px',
+          }}
+        >
+          {labels[index] ?? `Message ${index + 1}`}
         </span>
       </motion.div>
 
-      {/* --- 호버 시 나타나는 Q&A 말풍선 --- */}
+      {/* Q&A 말풍선 */}
       <AnimatePresence>
         {isHovered && (
           <motion.div
@@ -64,30 +81,76 @@ const Envelope = ({ item, index }: { item: AboutQA; index: number }) => {
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
             style={{
-              position: 'absolute', bottom: '140px', width: '440px',
-              padding: '16px 20px', borderRadius: '20px',
-              background: 'rgba(255,255,255,0.95)',
-              border: '1px solid rgba(255,255,255,0.9)',
-              maxHeight: '280px',
+              position: 'absolute',
+              bottom: '140px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '480px',
+              padding: '20px 24px',
+              borderRadius: '16px',
+              /* ✅ 핵심: 불투명 단색 배경으로 가독성 확보 */
+              background: '#ffffff',
+              border: '1.5px solid #e8ddd8',
+              boxShadow: '0 8px 32px rgba(91, 75, 91, 0.15)',
+              maxHeight: '300px',
               overflowY: 'auto',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-              backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
-              zIndex: 100, pointerEvents: 'auto', color: '#5b4b5b', textAlign: 'left'
+              zIndex: 100,
+              pointerEvents: 'auto',
+              textAlign: 'left',
             }}
           >
-            <div style={{ fontSize: '1.05rem', fontWeight: 900, color: '#ff8a8a', marginBottom: '8px' }}>
+            {/* 질문 */}
+            <div
+              style={{
+                fontSize: '1rem',
+                fontWeight: 800,
+                /* ✅ 더 진한 핑크로 대비 강화 */
+                color: '#e05a7a',
+                marginBottom: '10px',
+                lineHeight: 1.5,
+              }}
+            >
               Q. {item.question}
             </div>
-            <div style={{ fontSize: '0.92rem', lineHeight: 1.5, fontWeight: 600, whiteSpace: 'pre-wrap', color: '#6e5f6e' }}>
-              A. {item.answer}
+
+            {/* 구분선 */}
+            <div
+              style={{
+                borderTop: '1px solid #f0e8e4',
+                marginBottom: '10px',
+              }}
+            />
+
+            {/* 답변 */}
+            <div
+              style={{
+                fontSize: '0.95rem',
+                lineHeight: 1.75,
+                fontWeight: 500,
+                /* ✅ 진한 텍스트 색상으로 가독성 대폭 향상 */
+                color: '#3d3040',
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'keep-all',
+              }}
+            >
+              {item.answer}
             </div>
+
             {/* 말풍선 꼬리 */}
-            <div style={{
-              position: 'absolute', bottom: '-10px', left: '50%', transform: 'translateX(-50%)',
-              width: '0', height: '0',
-              borderLeft: '10px solid transparent', borderRight: '10px solid transparent',
-              borderTop: '10px solid rgba(255,255,255,0.95)'
-            }} />
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '-11px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '0',
+                height: '0',
+                borderLeft: '10px solid transparent',
+                borderRight: '10px solid transparent',
+                borderTop: '11px solid #ffffff',
+                filter: 'drop-shadow(0 2px 2px rgba(91,75,91,0.08))',
+              }}
+            />
           </motion.div>
         )}
       </AnimatePresence>
@@ -100,54 +163,69 @@ const ResumeSection = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 환경 변수 기반 API 호출
-    axios.get(`${import.meta.env.VITE_API_BASE}/api/about`)
-      .then(res => {
-        console.log("전체 응답 데이터:", res.data);
-        // 데이터가 배열인지 확인 후 상태 업데이트
+    axios
+      .get(`${import.meta.env.VITE_API_BASE}/api/about`)
+      .then((res) => {
+        console.log('전체 응답 데이터:', res.data);
         const dataToSet = Array.isArray(res.data) ? res.data : [];
         setQaData(dataToSet);
         setLoading(false);
       })
-      .catch(err => {
-        console.error("Q&A 데이터 로딩 실패:", err);
+      .catch((err) => {
+        console.error('Q&A 데이터 로딩 실패:', err);
         setLoading(false);
       });
   }, []);
 
-  if (loading) return <div style={{ textAlign: 'center', padding: '100px', color: '#5b4b5b' }}>Loading...</div>;
+  if (loading)
+    return (
+      <div style={{ textAlign: 'center', padding: '100px', color: '#5b4b5b' }}>
+        Loading...
+      </div>
+    );
 
   return (
-    <div style={{
-      width: '100%', minHeight: '100vh',
-      display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'flex-start',
-      padding: '60px 50px 20px', background: 'transparent'
-    }}>
-      <motion.h2 
+    <div
+      style={{
+        width: '100%',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        padding: '60px 50px 20px',
+        background: 'transparent',
+      }}
+    >
+      <motion.h2
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        style={{ 
-          fontFamily: 'var(--font-display)', fontSize: '3rem', 
-          marginBottom: '150px', color: '#5b4b5b' 
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '3rem',
+          marginBottom: '150px',
+          color: '#5b4b5b',
         }}
       >
         Self Introduction
       </motion.h2>
 
-      {/* 그리드 영역: 데이터가 있을 때만 map 실행 */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '80px 40px',
-        maxWidth: '900px'
-      }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '80px 40px',
+          maxWidth: '900px',
+        }}
+      >
         {qaData.length > 0 ? (
           qaData.map((item, index) => (
             <Envelope key={index} item={item} index={index} />
           ))
         ) : (
-          <div style={{ gridColumn: 'span 3', textAlign: 'center', color: '#888' }}>
+          <div
+            style={{ gridColumn: 'span 3', textAlign: 'center', color: '#888' }}
+          >
             표시할 데이터가 없습니다. (데이터 개수: {qaData.length})
           </div>
         )}

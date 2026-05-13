@@ -78,7 +78,12 @@ const About: React.FC = () => {
                 <li>
                   <span className="date">약 1년</span>
                   <strong>OXFORD 어학원</strong>
-                  <p>초/중등 영어 강사 (수업 진행 및 학생 관리)</p>
+                  <p>초/중등 영어 강사 (수업진행 및 학생관리)</p>
+                </li>
+                <li>
+                  <span className="date">2달</span>
+                  <strong>AiMobility</strong>
+                  <p>앱 개발자(앱 디버깅)</p>
                 </li>
               </ul>
             </div>

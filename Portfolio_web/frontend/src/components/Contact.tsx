@@ -71,17 +71,17 @@ const Contact: React.FC = () => {
           <div className="cta-content">
             <h3 className="cta-title">Let's Build Something Amazing!</h3>
             <p className="cta-text">
-              새로운 프로젝트나 협업 기회가 있다면 언제든 연락 주세요.
+              새로운 프로젝트나 협업 기회가 있다면 언제든 연락 주세요!
               <br />
-              함께 혁신적인 서비스를 만들어가고 싶습니다.
+              최선을 다해 서비스를 개발하겠습니다!
             </p>
             
             <div className="cta-badges">
-              <div className="badge">E2E Development</div>
-              <div className="badge">AI/ML</div>
-              <div className="badge">Mobile App</div>
+              <div className="badge">Kotlin</div>
+              <div className="badge">native</div>
+              <div className="badge">React</div>
               <div className="badge">VR/AR</div>
-              <div className="badge">Web Development</div>
+              <div className="badge">AI</div>
             </div>
           </div>
 
