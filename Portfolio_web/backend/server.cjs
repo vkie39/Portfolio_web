@@ -104,7 +104,7 @@ const projects = [
     categories: ["kotlin", "native"],
     problem: "프라블럼",
     role: "롤",
-    tech: ["Kotlin", "Native", "AndroidStudio", "Git", "Sentry"],
+    tech: ["Kotlin", "Native", "AndroidStudio", "Git", "Sentry", "AWS CloudWatch"],
     result: "리절트",
     metrics: "메트릭스",
     link: "https://www.notion.so/33422f9ea1f9808f8aa9e714a6778e0e?source=copy_link",
